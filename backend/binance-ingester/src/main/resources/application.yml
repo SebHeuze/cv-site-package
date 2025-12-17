@@ -1,0 +1,51 @@
+spring:
+  application:
+    name: binance-ingester
+
+  threads:
+    virtual:
+      enabled: true # Enable Java 21 Virtual Threads
+
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092,localhost:9093,localhost:9094}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      acks: all
+      retries: 3
+      compression-type: snappy
+      properties:
+        max.in.flight.requests.per.connection: 5
+        enable.idempotence: true
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus,metrics
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    tags:
+      application: ${spring.application.name}
+
+binance:
+  websocket:
+    url: ${BINANCE_WS_URL:wss://stream.binance.com:9443/ws/btcusdt@aggTrade}
+    reconnect-delay-ms: 5000
+    max-reconnect-attempts: -1 # infinite
+
+kafka:
+  topics:
+    binance-trades: binance-btcusdt-trades
+
+logging:
+  level:
+    com.cv.site: DEBUG
+    org.springframework.kafka: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"

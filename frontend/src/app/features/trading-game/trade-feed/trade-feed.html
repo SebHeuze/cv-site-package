@@ -1,0 +1,21 @@
+<div class="trade-feed">
+  <div class="trade-feed-header">
+    <h3>Recent Trades</h3>
+  </div>
+  <div class="trade-feed-columns">
+    <div class="column-header">Price (USDT)</div>
+    <div class="column-header">Amount (BTC)</div>
+    <div class="column-header">Time</div>
+  </div>
+  <div class="trade-feed-list">
+    <div
+      *ngFor="let trade of trades; trackBy: trackByTradeId"
+      class="trade-item"
+      [ngClass]="isBuy(trade) ? 'buy' : 'sell'"
+    >
+      <div class="trade-price">{{ trade.price.toFixed(2) }}</div>
+      <div class="trade-quantity">{{ formatQuantity(trade.quantity) }}</div>
+      <div class="trade-time">{{ formatTime(trade.timestamp) }}</div>
+    </div>
+  </div>
+</div>

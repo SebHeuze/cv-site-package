@@ -1,0 +1,30 @@
+<div class="terminal-container" (click)="focusInput()">
+  <div class="terminal-content" #terminalContent>
+    <!-- Display all terminal lines -->
+    <div *ngFor="let line of lines" class="terminal-line">
+      <div *ngIf="line.type === 'command'" class="command-line">
+        <span class="prompt">{{ line.prefix }}</span>
+        <span class="command-text">{{ line.content }}</span>
+      </div>
+      <div *ngIf="line.type === 'output' || line.type === 'typing'" class="output-line">
+        <pre>{{ line.content }}</pre>
+      </div>
+    </div>
+
+    <!-- Current input line -->
+    <div class="input-line" *ngIf="!isTyping">
+      <span class="prompt">{{ prompt }}</span>
+      <div class="input-wrapper">
+        <input
+          #terminalInput
+          type="text"
+          [(ngModel)]="currentCommand"
+          (keydown)="onKeyDown($event)"
+          class="terminal-input"
+          spellcheck="false"
+          autocomplete="off"
+        />
+      </div>
+    </div>
+  </div>
+</div>

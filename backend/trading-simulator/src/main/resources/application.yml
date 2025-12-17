@@ -1,0 +1,73 @@
+spring:
+  application:
+    name: trading-simulator
+
+  threads:
+    virtual:
+      enabled: true # Enable Java 21 Virtual Threads
+
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/trading_db}
+    username: ${SPRING_DATASOURCE_USERNAME:cvuser}
+    password: ${SPRING_DATASOURCE_PASSWORD:cvpassword}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop  # Recreate schema on each start (dev mode)
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092,localhost:9093,localhost:9094}
+    consumer:
+      group-id: trading-simulator-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
+      auto-offset-reset: latest
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      acks: all
+      retries: 3
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus,metrics
+      base-path: /actuator
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    tags:
+      application: ${spring.application.name}
+
+kafka:
+  topics:
+    binance-trades: binance-btcusdt-trades
+    trading-events: trading-events
+
+trading:
+  default-user-id: demo-user
+  fee-percentage: 0.1 # 0.1% trading fee
+  initial-balance-usdt: 10000.0
+  min-trade-quantity: 0.0001
+  max-trade-quantity: 100.0
+
+logging:
+  level:
+    com.cv.site: DEBUG
+    org.springframework.kafka: INFO
+    org.hibernate.SQL: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"

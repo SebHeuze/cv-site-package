@@ -1,0 +1,128 @@
+.window {
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 400px;
+  min-height: 300px;
+  width: 800px;
+  height: 600px;
+  background-color: #303030;
+  border-radius: 8px;
+  border: 1px solid #555;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  will-change: transform;
+
+  &:focus-within {
+    box-shadow: 0 20px 60px rgba(233, 84, 32, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  }
+
+  &.trading-game-window {
+    height: auto;
+    width: auto;
+  }
+
+  &.maximized {
+    top: 28px !important;
+    left: 64px !important;
+    width: calc(100vw - 64px) !important;
+    height: calc(100vh - 28px) !important;
+    border-radius: 0;
+    transform: none !important;
+    transition: all 0.2s ease;
+  }
+}
+
+.window-header {
+  background-color: #2c2c2c;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  padding: 0 12px;
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: move;
+  user-select: none;
+}
+
+.window-title {
+  font-size: 14px;
+  font-weight: bold;
+  color: #e0e0e0;
+  flex: 1;
+  text-align: center;
+  font-family: 'Ubuntu', sans-serif;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.window-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.control-btn {
+  width: 20px;
+  height: 20px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  padding: 0;
+  background-color: #666;
+
+  &:hover {
+    background-color: #777;
+  }
+
+  svg {
+    display: block;
+  }
+
+  &.minimize-btn {
+    svg rect {
+      fill: white;
+    }
+  }
+
+  &.maximize-btn {
+    svg rect {
+      fill: none;
+      stroke: white;
+    }
+  }
+
+  &.close-btn {
+    background-color: #E95420;
+
+    &:hover {
+      background-color: #D94410;
+    }
+
+    svg path {
+      stroke: white;
+    }
+  }
+}
+
+.window-content {
+  flex: 1;
+  overflow: hidden;
+  background-color: #1e1e1e;
+
+  // For cv-terminal and trading-game, no padding (full height)
+  app-cv-terminal,
+  app-trading-game {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+}
+

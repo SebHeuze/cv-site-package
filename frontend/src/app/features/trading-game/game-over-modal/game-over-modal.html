@@ -1,0 +1,56 @@
+<div class="modal-overlay">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>GAME OVER</h2>
+      <button class="close-btn" (click)="onClose()">×</button>
+    </div>
+
+    <div class="modal-body">
+      <div class="game-stats">
+        <div class="stat-item">
+          <span class="stat-label">Survival Time:</span>
+          <span class="stat-value highlight">{{ formatTime(survivalTime) }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Final Capital:</span>
+          <span class="stat-value">{{ finalCapital.toFixed(2) }} USDT</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Trades Executed:</span>
+          <span class="stat-value">{{ tradeCount }}</span>
+        </div>
+      </div>
+
+      <div class="leaderboard-section" *ngIf="showLeaderboard && leaderboard.length > 0">
+        <h3>🏆 Leaderboard</h3>
+        <table class="leaderboard-table">
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Username</th>
+              <th>Survival</th>
+              <th>Final Capital</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let score of leaderboard; let i = index" [class.highlight]="i < 3">
+              <td>{{ i + 1 }}</td>
+              <td>{{ score.username }}</td>
+              <td>{{ formatTime(score.survivalTime) }}</td>
+              <td>{{ score.finalCapital.toFixed(2) }} USDT</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn btn-primary" (click)="onPlayAgain()">
+          Play Again
+        </button>
+        <button class="btn btn-secondary" (click)="onViewLeaderboard()">
+          {{ showLeaderboard ? 'Hide' : 'View' }} Leaderboard
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

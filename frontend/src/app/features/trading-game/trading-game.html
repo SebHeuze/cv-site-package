@@ -1,0 +1,124 @@
+<div class="trading-game-container">
+  <!-- Start Screen (Overlay) -->
+  <div class="start-screen-overlay" *ngIf="!isGameStarted">
+    <div class="start-modal">
+      <div class="modal-header">
+        <h1>BTC Trading Terminal</h1>
+        <div class="ubuntu-dots">
+          <span class="dot close"></span>
+          <span class="dot min"></span>
+          <span class="dot max"></span>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <p class="mission-text">Initialize trading session...</p>
+        <div class="stats-preview">
+          <div class="stat-item">
+            <span class="label">Capital</span>
+            <span class="value">10,000 USDT</span>
+          </div>
+          <div class="stat-item">
+            <span class="label">Leverage</span>
+            <span class="value warning">1000x</span>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>Trader Alias</label>
+          <input type="text" [(ngModel)]="username" placeholder="Enter alias..." class="ubuntu-input"
+            (keydown.enter)="startGame()" maxlength="20" autofocus />
+        </div>
+
+        <button class="ubuntu-btn primary" (click)="startGame()">
+          INITIALIZE SESSION
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Game Dashboard -->
+  <div class="game-dashboard" *ngIf="isGameStarted && !isGameOver">
+    <!-- Top Bar -->
+    <header class="dashboard-header">
+      <div class="left-section">
+        <span class="app-title">BTC/USDT PERPETUAL</span>
+        <span class="status-badge live">LIVE</span>
+      </div>
+      <div class="center-section">
+        <div class="price-ticker" [class.up]="currentPrice > 0" [class.down]="currentPrice < 0">
+          {{ currentPrice | number:'1.2-2' }}
+        </div>
+      </div>
+      <div class="right-section">
+        <div class="user-info">
+          <span class="icon">👤</span>
+          <span class="name">{{ username }}</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Grid -->
+    <div class="dashboard-grid">
+      <!-- Top Left: Chart -->
+      <div class="panel chart-panel">
+        <div class="panel-header">Price Action</div>
+        <div class="panel-content">
+          <app-price-chart (priceUpdate)="onPriceUpdate($event)"></app-price-chart>
+        </div>
+      </div>
+
+      <!-- Top Right: Order Book (Trade Feed) -->
+      <div class="panel feed-panel">
+        <div class="panel-header">Order Book</div>
+        <div class="panel-content">
+          <app-trade-feed></app-trade-feed>
+        </div>
+      </div>
+
+      <!-- Bottom Left: Portfolio -->
+      <div class="panel stats-panel">
+        <div class="panel-header">Portfolio</div>
+        <div class="panel-content">
+          <app-portfolio-display [portfolio]="portfolio" [survivalTime]="survivalTime">
+          </app-portfolio-display>
+        </div>
+      </div>
+
+      <!-- Bottom Right: Trading Controls -->
+      <div class="panel controls-panel">
+        <div class="panel-header">Order Entry</div>
+        <div class="panel-content">
+
+          <div class="initial-prompt" *ngIf="!hasChosenPosition">
+            <p>Select entry position to begin</p>
+          </div>
+
+          <div class="trade-buttons">
+            <button class="trade-btn long" (click)="goLong()" [disabled]="portfolio?.positionType === 'LONG'"
+              [class.active]="portfolio?.positionType === 'LONG'">
+              <div class="btn-content">
+                <span class="direction">LONG</span>
+                <span class="sub-text">Profit on UP</span>
+              </div>
+            </button>
+
+            <button class="trade-btn short" (click)="goShort()" [disabled]="portfolio?.positionType === 'SHORT'"
+              [class.active]="portfolio?.positionType === 'SHORT'">
+              <div class="btn-content">
+                <span class="direction">SHORT</span>
+                <span class="sub-text">Profit on DOWN</span>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Game Over Modal -->
+  <app-game-over-modal *ngIf="isGameOver" [survivalTime]="survivalTime"
+    [finalCapital]="portfolio ? portfolio.currentBtcValue : 0" [tradeCount]="0" [leaderboard]="leaderboard"
+    (playAgain)="onPlayAgain()" (viewLeaderboard)="onViewLeaderboard()" (close)="onCloseGameOver()">
+  </app-game-over-modal>
+</div>

@@ -1,0 +1,22 @@
+<div class="taskbar">
+  <div class="taskbar-left">
+    <!-- Optional: Ubuntu menu icon -->
+  </div>
+
+  <div class="taskbar-center">
+    <div
+      *ngFor="let window of windows"
+      class="taskbar-item"
+      [class.minimized]="window.isMinimized"
+      (click)="onWindowClick(window.id)">
+      <span class="window-title">{{ window.title }}</span>
+    </div>
+  </div>
+
+  <div class="taskbar-right">
+    <div class="clock">
+      <div class="time">{{ formatTime() }}</div>
+      <div class="date">{{ formatDate() }}</div>
+    </div>
+  </div>
+</div>

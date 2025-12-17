@@ -1,0 +1,44 @@
+<div
+  #windowElement
+  class="window"
+  [style.z-index]="window.zIndex"
+  [style.transform]="getTransform()"
+  [class.maximized]="window.isMaximized"
+  [class.trading-game-window]="window.component === 'trading-game'"
+  (mousedown)="onWindowMouseDown()">
+
+  <!-- Window Title Bar -->
+  <div #titleBar class="window-header" (dblclick)="onMaximize()">
+    <div style="width: 80px;"></div>
+    <div class="window-title">{{ window.title }}</div>
+    <div class="window-controls">
+      <!-- Minimize Button -->
+      <button class="control-btn minimize-btn" (click)="onMinimize(); $event.stopPropagation()" title="Minimize">
+        <svg width="10" height="2" viewBox="0 0 10 2" fill="none">
+          <rect width="10" height="2" rx="1" fill="white"/>
+        </svg>
+      </button>
+      <!-- Maximize Button -->
+      <button class="control-btn maximize-btn" (click)="onMaximize(); $event.stopPropagation()" title="Maximize">
+        <svg width="8" height="8" viewBox="0 0 10 10" fill="none">
+          <rect width="10" height="10" stroke="white" stroke-width="1.5"/>
+        </svg>
+      </button>
+      <!-- Close Button -->
+      <button class="control-btn close-btn" (click)="onClose(); $event.stopPropagation()" title="Close">
+        <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
+          <path d="M1 1L7 7M7 1L1 7" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Window Content -->
+  <div class="window-content" [ngSwitch]="window.component">
+    <app-cv-terminal *ngSwitchCase="'cv-terminal'"></app-cv-terminal>
+    <app-trading-game *ngSwitchCase="'trading-game'"></app-trading-game>
+    <div *ngSwitchDefault>
+      <p>Unknown component: {{ window.component }}</p>
+    </div>
+  </div>
+</div>

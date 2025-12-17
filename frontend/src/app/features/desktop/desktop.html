@@ -1,0 +1,81 @@
+<div class="desktop">
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="activities-button">Activities</div>
+    <div class="top-bar-center">
+      {{ currentTime | date:'MMM d' }}&nbsp;&nbsp;{{ currentTime | date:'HH:mm' }}
+    </div>
+    <div class="top-bar-right">
+      <!-- Network Icon -->
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2C7.58 2 4.08 4.41 2.12 7.99L12 21.99L21.88 7.99C19.92 4.41 16.42 2 12 2Z" />
+      </svg>
+      <!-- Volume Icon -->
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z" />
+      </svg>
+      <!-- Power Icon -->
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <path
+          d="M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42C17.99 7.86 19 9.81 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.19 1.01-4.14 2.58-5.42L6.17 5.17C4.23 6.82 3 9.26 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z" />
+      </svg>
+    </div>
+  </div>
+
+  <div class="desktop-main">
+    <!-- Left Dock -->
+    <div class="left-dock">
+      <!-- Terminal Icon -->
+      <div class="dock-item" [class.is-open]="isAppOpen('cv-terminal')" [class.is-active]="isAppActive('cv-terminal')"
+        (click)="openWindow('cv-terminal')" title="Terminal">
+        <div class="dock-icon">
+          <img src="assets/icons/terminal.svg" alt="Terminal">
+        </div>
+      </div>
+
+      <!-- Trading Game Icon -->
+      <div class="dock-item" [class.is-open]="isAppOpen('trading-game')" [class.is-active]="isAppActive('trading-game')"
+        (click)="openWindow('trading-game')" title="Trading Game">
+        <div class="dock-icon">
+          <img src="assets/icons/trading.svg" alt="Trading Game">
+        </div>
+      </div>
+
+      <!-- Spacer -->
+      <div class="dock-spacer"></div>
+
+      <!-- App Grid Icon -->
+      <div class="dock-item dock-grid">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+          <circle cx="12" cy="12" r="2" />
+          <circle cx="4" cy="12" r="2" />
+          <circle cx="20" cy="12" r="2" />
+          <circle cx="12" cy="4" r="2" />
+          <circle cx="4" cy="4" r="2" />
+          <circle cx="20" cy="4" r="2" />
+          <circle cx="12" cy="20" r="2" />
+          <circle cx="4" cy="20" r="2" />
+          <circle cx="20" cy="20" r="2" />
+        </svg>
+      </div>
+    </div>
+
+    <!-- Desktop Area -->
+    <div class="desktop-area" (click)="clearActiveWindow()">
+      <!-- Desktop Icons -->
+      <div class="desktop-icons">
+        <app-desktop-icon *ngFor="let icon of icons" [icon]="icon.icon" [label]="icon.label"
+          (click)="openWindow(icon.component); $event.stopPropagation()">
+        </app-desktop-icon>
+      </div>
+
+      <!-- Windows -->
+      <div class="windows-container">
+        <app-window *ngFor="let window of getOpenWindows()" [window]="window" (close)="closeWindow(window.id)"
+          (minimize)="minimizeWindow(window.id)" (maximize)="maximizeWindow(window.id)"
+          (focus)="bringToFront(window.id)" (positionChange)="updateWindowPosition(window.id, $event)">
+        </app-window>
+      </div>
+    </div>
+  </div>
+</div>

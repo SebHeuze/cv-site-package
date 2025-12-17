@@ -1,0 +1,445 @@
+// Variables
+$ubuntu-aubergine: #300a24;
+$ubuntu-orange: #dd4814;
+$ubuntu-warm-grey: #aea79f;
+$dark-bg: #1e1e1e;
+$panel-bg: rgba(44, 44, 44, 0.9);
+$border-color: rgba(255, 255, 255, 0.1);
+$success-green: #0e8a16;
+$danger-red: #cb2431;
+
+.trading-game-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: radial-gradient(circle at center, #4a192c 0%, $ubuntu-aubergine 100%);
+  color: #f5f5f5;
+  font-family: 'Ubuntu', sans-serif;
+  overflow: hidden;
+}
+
+// Start Screen Overlay
+.start-screen-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.start-modal {
+  width: 400px;
+  background: $dark-bg;
+  border-radius: 12px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  border: 1px solid $border-color;
+  overflow: hidden;
+
+  .modal-header {
+    background: $ubuntu-aubergine;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid $border-color;
+
+    h1 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 500;
+      color: white;
+    }
+
+    .ubuntu-dots {
+      display: flex;
+      gap: 6px;
+
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+
+        &.close {
+          background: $ubuntu-orange;
+        }
+
+        &.min {
+          background: $ubuntu-warm-grey;
+        }
+
+        &.max {
+          background: $success-green;
+        }
+      }
+    }
+  }
+
+  .modal-body {
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    .mission-text {
+      text-align: center;
+      color: $ubuntu-warm-grey;
+      margin: 0;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .stats-preview {
+      display: flex;
+      justify-content: space-between;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 16px;
+      border-radius: 8px;
+
+      .stat-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+
+        .label {
+          font-size: 12px;
+          color: $ubuntu-warm-grey;
+        }
+
+        .value {
+          font-family: 'Ubuntu Mono', monospace;
+          font-weight: 700;
+          font-size: 16px;
+
+          &.warning {
+            color: $ubuntu-orange;
+          }
+        }
+      }
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      label {
+        font-size: 12px;
+        font-weight: 700;
+        color: $ubuntu-warm-grey;
+        margin-left: 4px;
+      }
+
+      .ubuntu-input {
+        padding: 12px;
+        background: rgba(0, 0, 0, 0.2);
+        border: 1px solid $border-color;
+        border-radius: 6px;
+        color: white;
+        font-family: 'Ubuntu', sans-serif;
+        font-size: 16px;
+        transition: all 0.2s;
+
+        &:focus {
+          outline: none;
+          border-color: $ubuntu-orange;
+          background: rgba(0, 0, 0, 0.4);
+        }
+      }
+    }
+
+    .ubuntu-btn {
+      padding: 14px;
+      border: none;
+      border-radius: 6px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 14px;
+
+      &.primary {
+        background: $ubuntu-orange;
+        color: white;
+
+        &:hover {
+          background: lighten($ubuntu-orange, 5%);
+          transform: translateY(-1px);
+          box-shadow: 0 4px 12px rgba($ubuntu-orange, 0.4);
+        }
+      }
+    }
+  }
+}
+
+// Game Dashboard
+.game-dashboard {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  gap: 16px;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  background: $panel-bg;
+  border-radius: 8px;
+  border: 1px solid $border-color;
+
+  .left-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    .app-title {
+      font-weight: 700;
+      font-size: 18px;
+      color: white;
+    }
+
+    .status-badge {
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 700;
+
+      &.live {
+        background: rgba($success-green, 0.2);
+        color: $success-green;
+        border: 1px solid rgba($success-green, 0.3);
+      }
+    }
+  }
+
+  .center-section {
+    .price-ticker {
+      font-family: 'Ubuntu Mono', monospace;
+      font-size: 24px;
+      font-weight: 700;
+
+      &.up {
+        color: $success-green;
+      }
+
+      &.down {
+        color: $danger-red;
+      }
+    }
+  }
+
+  .right-section {
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 6px 12px;
+      border-radius: 20px;
+
+      .name {
+        font-weight: 500;
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+.dashboard-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 3fr 1fr; // 3/4 : 1/4 ratio
+  grid-template-rows: 3fr 1fr; // 3/4 : 1/4 ratio
+  gap: 16px;
+  min-height: 0;
+}
+
+.panel {
+  background: $panel-bg;
+  border-radius: 8px;
+  border: 1px solid $border-color;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  .panel-header {
+    padding: 12px 16px;
+    background: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid $border-color;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: $ubuntu-warm-grey;
+    letter-spacing: 1px;
+  }
+
+  .panel-content {
+    flex: 1;
+    padding: 16px;
+    overflow: auto;
+    position: relative;
+  }
+}
+
+.chart-panel {
+  grid-column: 1;
+  grid-row: 1;
+
+  .panel-content {
+    padding: 0;
+
+    app-price-chart {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+  }
+}
+
+.feed-panel {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.stats-panel {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.controls-panel {
+  grid-column: 2;
+  grid-row: 2;
+
+  .initial-prompt {
+    text-align: center;
+    margin-bottom: 16px;
+
+    p {
+      margin: 0;
+      font-size: 14px;
+      color: $ubuntu-orange;
+    }
+  }
+
+  .trade-buttons {
+    display: flex;
+    gap: 12px;
+    height: 100%; // Fill height
+
+    .trade-btn {
+      flex: 1;
+      padding: 8px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .btn-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        z-index: 1;
+        position: relative;
+      }
+
+      .direction {
+        font-weight: 900;
+        font-size: 16px;
+      }
+
+      .sub-text {
+        font-size: 10px;
+        opacity: 0.8;
+      }
+
+      &.long {
+        background: rgba($success-green, 0.15);
+        border: 1px solid rgba($success-green, 0.3);
+        color: lighten($success-green, 10%);
+
+        &:hover:not(:disabled) {
+          background: rgba($success-green, 0.3);
+          transform: translateY(-2px);
+        }
+
+        &.active {
+          background: $success-green;
+          color: white;
+          box-shadow: 0 0 15px rgba($success-green, 0.4);
+        }
+      }
+
+      &.short {
+        background: rgba($danger-red, 0.15);
+        border: 1px solid rgba($danger-red, 0.3);
+        color: lighten($danger-red, 10%);
+
+        &:hover:not(:disabled) {
+          background: rgba($danger-red, 0.3);
+          transform: translateY(-2px);
+        }
+
+        &.active {
+          background: $danger-red;
+          color: white;
+          box-shadow: 0 0 15px rgba($danger-red, 0.4);
+        }
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+// Responsive
+@media (max-width: 1024px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto;
+  }
+
+  .chart-panel {
+    grid-column: 1;
+    grid-row: 1;
+    height: 400px;
+  }
+
+  .feed-panel {
+    grid-column: 1;
+    grid-row: 2;
+    height: 300px;
+  }
+
+  .stats-panel {
+    grid-column: 1;
+    grid-row: 3;
+    height: 200px;
+  }
+
+  .controls-panel {
+    grid-column: 1;
+    grid-row: 4;
+    height: 150px;
+  }
+}

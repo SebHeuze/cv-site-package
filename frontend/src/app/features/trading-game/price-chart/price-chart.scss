@@ -1,0 +1,32 @@
+.chart-wrapper {
+  width: 100%;
+  background: #1e1e1e;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: #2b2b43;
+  border-bottom: 1px solid #3b3b53;
+
+  h3 {
+    margin: 0;
+    color: #d1d4dc;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .current-price {
+    font-size: 20px;
+    font-weight: 600;
+    color: #2962ff;
+  }
+}
+
+.chart-container {
+  width: 100%;
+}
