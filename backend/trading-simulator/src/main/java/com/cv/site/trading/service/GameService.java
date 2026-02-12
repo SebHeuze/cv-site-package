@@ -1,21 +1,30 @@
 package com.cv.site.trading.service;
 
-import com.cv.site.trading.dto.*;
-import com.cv.site.trading.model.*;
-import com.cv.site.trading.repository.GameSessionRepository;
-import com.cv.site.trading.repository.PortfolioRepository;
-import com.cv.site.trading.repository.ScoreRepository;
-import com.cv.site.trading.repository.TradeRepository;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.Instant;
 import java.util.List;
 import java.util.stream.IntStream;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.cv.site.trading.dto.GameSessionResponse;
+import com.cv.site.trading.dto.GameStatusResponse;
+import com.cv.site.trading.dto.PortfolioResponse;
+import com.cv.site.trading.dto.ScoreResponse;
+import com.cv.site.trading.dto.TradeResponse;
+import com.cv.site.trading.model.GameSession;
+import com.cv.site.trading.model.Portfolio;
+import com.cv.site.trading.model.Score;
+import com.cv.site.trading.model.Trade;
+import com.cv.site.trading.repository.GameSessionRepository;
+import com.cv.site.trading.repository.PortfolioRepository;
+import com.cv.site.trading.repository.ScoreRepository;
+import com.cv.site.trading.repository.TradeRepository;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
@@ -98,7 +107,7 @@ public class GameService {
             return toTradeResponse(null);
         }
 
-        // Close SHORT position and calculate P&L with 500x leverage
+        // Close SHORT position and calculate P&L with leverage
         // For SHORT: P&L = (entryPrice - currentPrice) / entryPrice * positionSize * leverage
         BigDecimal priceDiff = portfolio.getEntryPrice().subtract(currentPrice);
         BigDecimal priceChangePercent = priceDiff.divide(portfolio.getEntryPrice(), 8, RoundingMode.HALF_UP);
@@ -156,7 +165,7 @@ public class GameService {
             return toTradeResponse(null);
         }
 
-        // Close LONG position and calculate P&L with 500x leverage
+        // Close LONG position and calculate P&L with leverage
         // For LONG: P&L = (currentPrice - entryPrice) / entryPrice * positionSize * leverage
         BigDecimal priceDiff = currentPrice.subtract(portfolio.getEntryPrice());
         BigDecimal priceChangePercent = priceDiff.divide(portfolio.getEntryPrice(), 8, RoundingMode.HALF_UP);
