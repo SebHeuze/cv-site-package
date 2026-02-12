@@ -4,10 +4,11 @@ import { DesktopWindow } from '../desktop/desktop';
 import { CvTerminal } from '../cv-terminal/cv-terminal';
 import { TradingGame } from '../trading-game/trading-game';
 import { CvViewer } from '../cv-viewer/cv-viewer';
+import { SnakeGame } from '../snake-game/snake-game';
 
 @Component({
   selector: 'app-window',
-  imports: [CommonModule, CvTerminal, TradingGame, CvViewer],
+  imports: [CommonModule, CvTerminal, TradingGame, CvViewer, SnakeGame],
   templateUrl: './window.html',
   styleUrl: './window.scss',
 })
