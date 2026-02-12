@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { DesktopWindow } from '../desktop/desktop';
 import { CvTerminal } from '../cv-terminal/cv-terminal';
 import { TradingGame } from '../trading-game/trading-game';
+import { CvViewer } from '../cv-viewer/cv-viewer';
 
 @Component({
   selector: 'app-window',
-  imports: [CommonModule, CvTerminal, TradingGame],
+  imports: [CommonModule, CvTerminal, TradingGame, CvViewer],
   templateUrl: './window.html',
   styleUrl: './window.scss',
 })
@@ -24,6 +25,12 @@ export class Window implements AfterViewInit, OnDestroy {
   private isDragging = false;
   private dragOffset = { x: 0, y: 0 };
   private currentPosition = { x: 0, y: 0 };
+
+  private isResizing = false;
+  private resizeDirection = '';
+  private resizeStartPos = { x: 0, y: 0 };
+  private resizeStartSize = { width: 0, height: 0 };
+  private resizeStartWindowPos = { x: 0, y: 0 };
 
   ngAfterViewInit(): void {
     this.setupDragListeners();
@@ -120,4 +127,88 @@ export class Window implements AfterViewInit, OnDestroy {
     if (!this.window.position) return 'none';
     return `translate(${this.window.position.x}px, ${this.window.position.y}px)`;
   }
+
+  onResizeStart(e: MouseEvent, direction: string): void {
+    e.preventDefault();
+    e.stopPropagation();
+
+    this.isResizing = true;
+    this.resizeDirection = direction;
+    this.resizeStartPos = { x: e.clientX, y: e.clientY };
+    this.focus.emit();
+
+    const windowEl = this.windowElement?.nativeElement;
+    if (windowEl) {
+      const rect = windowEl.getBoundingClientRect();
+      this.resizeStartSize = { width: rect.width, height: rect.height };
+      this.resizeStartWindowPos = { x: rect.left, y: rect.top };
+    }
+
+    document.addEventListener('mousemove', this.onResizeMove);
+    document.addEventListener('mouseup', this.onResizeEnd);
+  }
+
+  private onResizeMove = (e: MouseEvent): void => {
+    if (!this.isResizing) return;
+
+    e.preventDefault();
+
+    const deltaX = e.clientX - this.resizeStartPos.x;
+    const deltaY = e.clientY - this.resizeStartPos.y;
+
+    const windowEl = this.windowElement?.nativeElement;
+    if (!windowEl) return;
+
+    let newWidth = this.resizeStartSize.width;
+    let newHeight = this.resizeStartSize.height;
+    let newX = this.currentPosition.x;
+    let newY = this.currentPosition.y;
+
+    // Apply resize based on direction
+    if (this.resizeDirection.includes('e')) {
+      newWidth = Math.max(400, this.resizeStartSize.width + deltaX);
+    }
+    if (this.resizeDirection.includes('w')) {
+      const widthChange = this.resizeStartSize.width - deltaX;
+      if (widthChange >= 400) {
+        newWidth = widthChange;
+        newX = this.resizeStartWindowPos.x + deltaX;
+      }
+    }
+    if (this.resizeDirection.includes('s')) {
+      newHeight = Math.max(300, this.resizeStartSize.height + deltaY);
+    }
+    if (this.resizeDirection.includes('n')) {
+      const heightChange = this.resizeStartSize.height - deltaY;
+      if (heightChange >= 300) {
+        newHeight = heightChange;
+        newY = this.resizeStartWindowPos.y + deltaY;
+      }
+    }
+
+    windowEl.style.width = `${newWidth}px`;
+    windowEl.style.height = `${newHeight}px`;
+
+    if (newX !== this.currentPosition.x || newY !== this.currentPosition.y) {
+      this.currentPosition = { x: newX, y: newY };
+      windowEl.style.transform = `translate(${newX}px, ${newY}px)`;
+    }
+  };
+
+  private onResizeEnd = (): void => {
+    if (!this.isResizing) return;
+
+    this.isResizing = false;
+    this.resizeDirection = '';
+
+    document.removeEventListener('mousemove', this.onResizeMove);
+    document.removeEventListener('mouseup', this.onResizeEnd);
+
+    // Emit position change if position changed during resize
+    if (this.window.position &&
+        (this.currentPosition.x !== this.window.position.x ||
+         this.currentPosition.y !== this.window.position.y)) {
+      this.positionChange.emit(this.currentPosition);
+    }
+  };
 }

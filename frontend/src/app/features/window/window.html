@@ -9,10 +9,10 @@
 
   <!-- Window Title Bar -->
   <div #titleBar class="window-header" (dblclick)="onMaximize()">
-    <div style="width: 80px;"></div>
+    <div class="window-spacer"></div>
     <div class="window-title">{{ window.title }}</div>
     <div class="window-controls">
-      <!-- Minimize Button -->
+      <!-- Minimize Button (Ubuntu order: minimize, maximize, close) -->
       <button class="control-btn minimize-btn" (click)="onMinimize(); $event.stopPropagation()" title="Minimize">
         <svg width="10" height="2" viewBox="0 0 10 2" fill="none">
           <rect width="10" height="2" rx="1" fill="white"/>
@@ -37,8 +37,21 @@
   <div class="window-content" [ngSwitch]="window.component">
     <app-cv-terminal *ngSwitchCase="'cv-terminal'"></app-cv-terminal>
     <app-trading-game *ngSwitchCase="'trading-game'"></app-trading-game>
+    <app-cv-viewer *ngSwitchCase="'cv-viewer'"></app-cv-viewer>
     <div *ngSwitchDefault>
       <p>Unknown component: {{ window.component }}</p>
     </div>
+  </div>
+
+  <!-- Resize Handles (only show when not maximized) -->
+  <div *ngIf="!window.isMaximized" class="resize-handles">
+    <div class="resize-handle resize-n" (mousedown)="onResizeStart($event, 'n')"></div>
+    <div class="resize-handle resize-e" (mousedown)="onResizeStart($event, 'e')"></div>
+    <div class="resize-handle resize-s" (mousedown)="onResizeStart($event, 's')"></div>
+    <div class="resize-handle resize-w" (mousedown)="onResizeStart($event, 'w')"></div>
+    <div class="resize-handle resize-ne" (mousedown)="onResizeStart($event, 'ne')"></div>
+    <div class="resize-handle resize-se" (mousedown)="onResizeStart($event, 'se')"></div>
+    <div class="resize-handle resize-sw" (mousedown)="onResizeStart($event, 'sw')"></div>
+    <div class="resize-handle resize-nw" (mousedown)="onResizeStart($event, 'nw')"></div>
   </div>
 </div>

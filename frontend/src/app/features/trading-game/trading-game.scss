@@ -13,169 +13,117 @@ $danger-red: #cb2431;
   height: 100%;
   display: flex;
   flex-direction: column;
-  background: radial-gradient(circle at center, #4a192c 0%, $ubuntu-aubergine 100%);
-  color: #f5f5f5;
+  background: #f5f5f5;
+  color: #2c2c2c;
   font-family: 'Ubuntu', sans-serif;
   overflow: hidden;
 }
 
-// Start Screen Overlay
-.start-screen-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(8px);
+// Start Screen
+.start-screen {
+  flex: 1;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
-  z-index: 100;
-}
+  align-items: center;
+  padding: 48px;
+  gap: 24px;
 
-.start-modal {
-  width: 400px;
-  background: $dark-bg;
-  border-radius: 12px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-  border: 1px solid $border-color;
-  overflow: hidden;
+  > * {
+    width: 100%;
+    max-width: 500px;
+  }
 
-  .modal-header {
-    background: $ubuntu-aubergine;
-    padding: 16px;
+  .mission-text {
+    text-align: center;
+    color: #666;
+    margin: 0;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .stats-preview {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid $border-color;
+    background: #e8e8e8;
+    padding: 16px;
+    border-radius: 6px;
+    border: 1px solid #d0d0d0;
 
-    h1 {
-      margin: 0;
-      font-size: 18px;
-      font-weight: 500;
-      color: white;
-    }
-
-    .ubuntu-dots {
+    .stat-item {
       display: flex;
-      gap: 6px;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
 
-      .dot {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
+      .label {
+        font-size: 12px;
+        color: #666;
+      }
 
-        &.close {
-          background: $ubuntu-orange;
-        }
+      .value {
+        font-family: 'Ubuntu Mono', monospace;
+        font-weight: 700;
+        font-size: 16px;
+        color: #2c2c2c;
 
-        &.min {
-          background: $ubuntu-warm-grey;
-        }
-
-        &.max {
-          background: $success-green;
+        &.warning {
+          color: $ubuntu-orange;
         }
       }
     }
   }
 
-  .modal-body {
-    padding: 32px;
+  .input-group {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 8px;
 
-    .mission-text {
-      text-align: center;
-      color: $ubuntu-warm-grey;
-      margin: 0;
-      font-size: 14px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .stats-preview {
-      display: flex;
-      justify-content: space-between;
-      background: rgba(255, 255, 255, 0.05);
-      padding: 16px;
-      border-radius: 8px;
-
-      .stat-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 4px;
-
-        .label {
-          font-size: 12px;
-          color: $ubuntu-warm-grey;
-        }
-
-        .value {
-          font-family: 'Ubuntu Mono', monospace;
-          font-weight: 700;
-          font-size: 16px;
-
-          &.warning {
-            color: $ubuntu-orange;
-          }
-        }
-      }
-    }
-
-    .input-group {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-
-      label {
-        font-size: 12px;
-        font-weight: 700;
-        color: $ubuntu-warm-grey;
-        margin-left: 4px;
-      }
-
-      .ubuntu-input {
-        padding: 12px;
-        background: rgba(0, 0, 0, 0.2);
-        border: 1px solid $border-color;
-        border-radius: 6px;
-        color: white;
-        font-family: 'Ubuntu', sans-serif;
-        font-size: 16px;
-        transition: all 0.2s;
-
-        &:focus {
-          outline: none;
-          border-color: $ubuntu-orange;
-          background: rgba(0, 0, 0, 0.4);
-        }
-      }
-    }
-
-    .ubuntu-btn {
-      padding: 14px;
-      border: none;
-      border-radius: 6px;
+    label {
+      font-size: 12px;
       font-weight: 700;
-      cursor: pointer;
+      color: #666;
+      margin-left: 4px;
+    }
+
+    .ubuntu-input {
+      padding: 12px;
+      background: white;
+      border: 1px solid #d0d0d0;
+      border-radius: 4px;
+      color: #2c2c2c;
+      font-family: 'Ubuntu', sans-serif;
+      font-size: 16px;
       transition: all 0.2s;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-size: 14px;
 
-      &.primary {
-        background: $ubuntu-orange;
-        color: white;
+      &:focus {
+        outline: none;
+        border-color: $ubuntu-orange;
+        box-shadow: 0 0 0 2px rgba($ubuntu-orange, 0.2);
+      }
+    }
+  }
 
-        &:hover {
-          background: lighten($ubuntu-orange, 5%);
-          transform: translateY(-1px);
-          box-shadow: 0 4px 12px rgba($ubuntu-orange, 0.4);
-        }
+  .ubuntu-btn {
+    padding: 14px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 14px;
+
+    &.primary {
+      background: $ubuntu-orange;
+      color: white;
+
+      &:hover {
+        background: lighten($ubuntu-orange, 5%);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba($ubuntu-orange, 0.4);
       }
     }
   }
@@ -183,11 +131,12 @@ $danger-red: #cb2431;
 
 // Game Dashboard
 .game-dashboard {
-  flex: 1;
   display: flex;
   flex-direction: column;
   padding: 16px;
   gap: 16px;
+  width: 100%;
+  height: 100%;
 }
 
 .dashboard-header {
@@ -195,9 +144,9 @@ $danger-red: #cb2431;
   justify-content: space-between;
   align-items: center;
   padding: 12px 24px;
-  background: $panel-bg;
-  border-radius: 8px;
-  border: 1px solid $border-color;
+  background: #e8e8e8;
+  border-radius: 6px;
+  border: 1px solid #d0d0d0;
 
   .left-section {
     display: flex;
@@ -207,7 +156,7 @@ $danger-red: #cb2431;
     .app-title {
       font-weight: 700;
       font-size: 18px;
-      color: white;
+      color: #2c2c2c;
     }
 
     .status-badge {
@@ -267,21 +216,21 @@ $danger-red: #cb2431;
 }
 
 .panel {
-  background: $panel-bg;
-  border-radius: 8px;
-  border: 1px solid $border-color;
+  background: white;
+  border-radius: 6px;
+  border: 1px solid #d0d0d0;
   display: flex;
   flex-direction: column;
   overflow: hidden;
 
   .panel-header {
     padding: 12px 16px;
-    background: rgba(0, 0, 0, 0.2);
-    border-bottom: 1px solid $border-color;
+    background: #e8e8e8;
+    border-bottom: 1px solid #d0d0d0;
     font-size: 12px;
     text-transform: uppercase;
     font-weight: 700;
-    color: $ubuntu-warm-grey;
+    color: #666;
     letter-spacing: 1px;
   }
 

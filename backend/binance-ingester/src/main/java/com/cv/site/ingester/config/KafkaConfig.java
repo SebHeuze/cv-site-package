@@ -12,11 +12,14 @@ public class KafkaConfig {
     @Value("${kafka.topics.binance-trades}")
     private String binanceTradesTopic;
 
+    @Value("${kafka.topics.replicas:1}")
+    private int replicas;
+
     @Bean
     public NewTopic binanceTradesTopic() {
         return TopicBuilder.name(binanceTradesTopic)
                 .partitions(3)
-                .replicas(3)
+                .replicas(replicas)
                 .config("retention.ms", "604800000") // 7 days
                 .build();
     }

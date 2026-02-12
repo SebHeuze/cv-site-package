@@ -15,10 +15,8 @@
   background: white;
   border-radius: 8px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-  max-width: 600px;
-  width: 90%;
-  max-height: 80vh;
-  overflow-y: auto;
+  width: 500px;
+  max-width: 90%;
 }
 
 .modal-header {
@@ -92,67 +90,12 @@
   }
 }
 
-.leaderboard-section {
-  margin-bottom: 24px;
-  animation: slideDown 0.3s ease-in-out;
-
-  h3 {
-    margin: 0 0 16px 0;
-    color: #333;
-    font-size: 20px;
-  }
-}
-
-.leaderboard-table {
-  width: 100%;
-  border-collapse: collapse;
-
-  thead {
-    background: #f5f5f5;
-
-    th {
-      padding: 12px;
-      text-align: left;
-      font-weight: 600;
-      color: #666;
-      font-size: 14px;
-      border-bottom: 2px solid #ddd;
-    }
-  }
-
-  tbody {
-    tr {
-      border-bottom: 1px solid #eee;
-
-      &.highlight {
-        background: #fff3cd;
-      }
-
-      &:hover {
-        background: #f9f9f9;
-      }
-
-      td {
-        padding: 12px;
-        font-size: 14px;
-        color: #333;
-
-        &:first-child {
-          font-weight: 600;
-          color: #2962FF;
-        }
-      }
-    }
-  }
-}
-
 .modal-actions {
   display: flex;
-  gap: 12px;
   justify-content: center;
 
   .btn {
-    padding: 12px 24px;
+    padding: 12px 32px;
     border: none;
     border-radius: 4px;
     font-size: 16px;
@@ -169,21 +112,5 @@
       background: linear-gradient(135deg, #4caf50, #45a049);
       color: white;
     }
-
-    &.btn-secondary {
-      background: linear-gradient(135deg, #2196F3, #1976D2);
-      color: white;
-    }
-  }
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
   }
 }

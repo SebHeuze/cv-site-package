@@ -57,11 +57,6 @@ Type 'help' for available commands
 
     await this.typeText(welcomeText);
 
-    // Auto-display about section
-    await this.typeText('$ about\n');
-    const aboutOutput = this.aboutCommand();
-    this.lines.push({ type: 'output', content: aboutOutput });
-
     this.isTyping = false;
     this.focusInput();
   }
@@ -210,10 +205,12 @@ Hidden commands: Try 'sudo rm -rf /' or 'matrix'`;
   aboutCommand(): string {
     const data = CV_DATA.about;
     return `
-╔════════════════════════════════════════════════════════════════╗
-║                       ${data.name}                        ║
-║                     ${data.title}                          ║
-╚════════════════════════════════════════════════════════════════╝
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ${data.name}
+  ${data.title}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 📧 Email:     ${data.email}
 📱 Phone:     ${data.phone}
@@ -307,8 +304,14 @@ Feel free to reach out!
   }
 
   downloadCommand(): string {
-    return `📥 Download feature coming soon!
-For now, please contact me at ${CV_DATA.about.email} to request my CV.`;
+    const link = document.createElement('a');
+    link.href = 'CV_Sébastien_HEUZE.pdf';
+    link.download = 'CV_Sébastien_HEUZE.pdf';
+    link.click();
+
+    return `📥 Downloading CV...
+File: CV_Sébastien_HEUZE.pdf
+Status: Download started successfully!`;
   }
 
   sudoRmCommand(): string {

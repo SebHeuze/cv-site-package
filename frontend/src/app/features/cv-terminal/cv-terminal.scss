@@ -8,6 +8,36 @@
   padding: 8px;
   overflow: hidden;
   cursor: text;
+
+  // Mobile: semi-transparent to show gradient behind
+  @media (max-width: 768px) {
+    background-color: rgba(48, 10, 36, 0.85);
+    backdrop-filter: blur(10px);
+    padding: 16px;
+    min-height: calc(100vh - 140px);
+    max-height: calc(100vh - 140px);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+
+    /* Custom scrollbar - Ubuntu style for mobile */
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #2c001e;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #E95420;
+      border-radius: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: #c74316;
+    }
+  }
 }
 
 .terminal-content {

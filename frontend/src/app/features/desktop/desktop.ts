@@ -29,13 +29,23 @@ export class Desktop implements OnInit, OnDestroy {
 
   icons = [
     { id: 'cv-terminal', label: 'CV_Terminal', icon: 'assets/icons/terminal.svg', component: 'cv-terminal' },
-    { id: 'trading-game', label: 'Trading_Game', icon: 'assets/icons/trading.svg', component: 'trading-game' }
+    { id: 'trading-game', label: 'Trading_Game', icon: 'assets/icons/trading.svg', component: 'trading-game' },
+    { id: 'cv-viewer', label: 'CV_Document', icon: 'assets/icons/pdf.svg', component: 'cv-viewer' }
   ];
 
   ngOnInit(): void {
     this.timeInterval = window.setInterval(() => {
       this.currentTime = new Date();
     }, 1000);
+
+    // Auto-open terminal on mobile
+    if (this.isMobile()) {
+      this.openWindow('cv-terminal');
+    }
+  }
+
+  isMobile(): boolean {
+    return window.innerWidth <= 768;
   }
 
   ngOnDestroy(): void {
@@ -55,14 +65,20 @@ export class Desktop implements OnInit, OnDestroy {
       return;
     }
 
-    const title = component === 'cv-terminal' ? 'CV Terminal' : 'Trading Game';
+    let title = 'Unknown';
+    if (component === 'cv-terminal') title = 'CV Terminal';
+    else if (component === 'trading-game') title = 'Trading Game';
+    else if (component === 'cv-viewer') title = 'Document Viewer';
 
-    // Calculate center position for all windows
-    const windowWidth = component === 'trading-game' ? 1200 : 800;
-    const windowHeight = component === 'trading-game' ? 800 : 600;
+    // Calculate cascading position with offset for each new window
+    const offset = this.windows.length * 30; // 30px offset for each window
+    const windowWidth = 800;
+    const windowHeight = 600;
+    const baseX = 200; // Start with space for dock icons
+    const baseY = 100; // Start with space below top bar
     const position = {
-      x: (window.innerWidth - windowWidth) / 2,
-      y: (window.innerHeight - windowHeight - 48) / 2 // 48px for taskbar
+      x: baseX + offset,
+      y: baseY + offset
     };
 
     const newWindow: DesktopWindow = {
@@ -145,5 +161,10 @@ export class Desktop implements OnInit, OnDestroy {
     if (window) {
       window.position = position;
     }
+  }
+
+  getAppIcon(component: string): string {
+    const icon = this.icons.find(i => i.component === component);
+    return icon ? icon.icon : 'assets/icons/terminal.svg';
   }
 }

@@ -1,0 +1,79 @@
+.cv-viewer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #f5f5f5;
+}
+
+.cv-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px;
+  background: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  min-height: 48px;
+}
+
+.cv-toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cv-filename {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.cv-toolbar-right {
+  display: flex;
+  gap: 8px;
+}
+
+.download-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: #4285f4;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: #3367d6;
+  }
+
+  &:active {
+    background: #2851a3;
+  }
+
+  svg {
+    stroke: white;
+  }
+}
+
+.cv-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  overflow: hidden;
+}
+
+.pdf-frame {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}

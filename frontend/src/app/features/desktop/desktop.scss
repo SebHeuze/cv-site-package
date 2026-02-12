@@ -11,6 +11,33 @@
   user-select: none;
 }
 
+// Mobile optimization notice
+.mobile-notice {
+  display: none;
+
+  @media (max-width: 768px) {
+    display: block;
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10000;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 8px 16px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+
+    p {
+      margin: 0;
+      color: #fff;
+      font-size: 12px;
+      font-family: 'Ubuntu', sans-serif;
+      text-align: center;
+      opacity: 0.9;
+    }
+  }
+}
+
 // Top Bar
 .top-bar {
   height: 28px;
@@ -24,6 +51,11 @@
   font-size: 14px;
   color: #d4d4d4;
   font-family: 'Ubuntu', sans-serif;
+
+  // Hide on mobile
+  @media (max-width: 768px) {
+    display: none;
+  }
 }
 
 .activities-button {
@@ -82,6 +114,11 @@
   padding: 8px 0;
   gap: 8px;
   z-index: 40;
+
+  // Hide on mobile
+  @media (max-width: 768px) {
+    display: none;
+  }
 }
 
 .dock-item {
@@ -189,6 +226,10 @@
   flex-direction: column;
   gap: 24px;
   z-index: 1;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 }
 
 .windows-container {

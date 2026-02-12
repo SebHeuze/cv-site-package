@@ -20,8 +20,8 @@
   }
 
   &.trading-game-window {
-    height: auto;
     width: auto;
+    height: auto;
   }
 
   &.maximized {
@@ -32,6 +32,22 @@
     border-radius: 0;
     transform: none !important;
     transition: all 0.2s ease;
+  }
+
+  // Mobile: centered terminal with border like resume.adautry.fr
+  @media (max-width: 768px) {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: calc(100vw - 40px) !important;
+    height: auto !important;
+    max-height: calc(100vh - 100px) !important;
+    border-radius: 8px;
+    border: 1px solid rgba(100, 100, 100, 0.5);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    min-width: unset;
+    min-height: 300px;
   }
 }
 
@@ -45,6 +61,24 @@
   align-items: center;
   cursor: move;
   user-select: none;
+
+  // Mobile: show simplified header with dots only
+  @media (max-width: 768px) {
+    cursor: default;
+    justify-content: flex-start;
+    padding: 0 16px;
+    background-color: #3c3c3c;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  }
+}
+
+.window-spacer {
+  width: 80px;
+
+  // Hide on mobile
+  @media (max-width: 768px) {
+    display: none;
+  }
 }
 
 .window-title {
@@ -58,6 +92,11 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  // Hide on mobile
+  @media (max-width: 768px) {
+    display: none;
+  }
 }
 
 .window-controls {
@@ -84,6 +123,11 @@
 
   svg {
     display: block;
+
+    // Hide SVG icons on mobile
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 
   &.minimize-btn {
@@ -110,6 +154,29 @@
       stroke: white;
     }
   }
+
+  // Mobile: just show colored dots (macOS style)
+  @media (max-width: 768px) {
+    width: 12px;
+    height: 12px;
+    cursor: default;
+    pointer-events: none;
+
+    &.close-btn {
+      background-color: #fe5f57;
+      order: 1; // First on mobile (red)
+    }
+
+    &.minimize-btn {
+      background-color: #f5c033;
+      order: 2; // Second on mobile (yellow)
+    }
+
+    &.maximize-btn {
+      background-color: #57c657;
+      order: 3; // Third on mobile (green)
+    }
+  }
 }
 
 .window-content {
@@ -123,6 +190,98 @@
     display: block;
     width: 100%;
     height: 100%;
+  }
+
+  // Mobile: let content size naturally
+  @media (max-width: 768px) {
+    flex: none;
+    overflow: visible;
+  }
+}
+
+// Resize Handles
+.resize-handles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+
+  // Hide on mobile
+  @media (max-width: 768px) {
+    display: none;
+  }
+
+  .resize-handle {
+    position: absolute;
+    pointer-events: all;
+  }
+
+  // Edge handles
+  .resize-n {
+    top: 0;
+    left: 8px;
+    right: 8px;
+    height: 4px;
+    cursor: ns-resize;
+  }
+
+  .resize-e {
+    top: 8px;
+    right: 0;
+    bottom: 8px;
+    width: 4px;
+    cursor: ew-resize;
+  }
+
+  .resize-s {
+    bottom: 0;
+    left: 8px;
+    right: 8px;
+    height: 4px;
+    cursor: ns-resize;
+  }
+
+  .resize-w {
+    top: 8px;
+    left: 0;
+    bottom: 8px;
+    width: 4px;
+    cursor: ew-resize;
+  }
+
+  // Corner handles
+  .resize-ne {
+    top: 0;
+    right: 0;
+    width: 8px;
+    height: 8px;
+    cursor: nesw-resize;
+  }
+
+  .resize-se {
+    bottom: 0;
+    right: 0;
+    width: 8px;
+    height: 8px;
+    cursor: nwse-resize;
+  }
+
+  .resize-sw {
+    bottom: 0;
+    left: 0;
+    width: 8px;
+    height: 8px;
+    cursor: nesw-resize;
+  }
+
+  .resize-nw {
+    top: 0;
+    left: 0;
+    width: 8px;
+    height: 8px;
+    cursor: nwse-resize;
   }
 }
 

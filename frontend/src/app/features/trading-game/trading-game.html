@@ -1,40 +1,27 @@
 <div class="trading-game-container">
-  <!-- Start Screen (Overlay) -->
-  <div class="start-screen-overlay" *ngIf="!isGameStarted">
-    <div class="start-modal">
-      <div class="modal-header">
-        <h1>BTC Trading Terminal</h1>
-        <div class="ubuntu-dots">
-          <span class="dot close"></span>
-          <span class="dot min"></span>
-          <span class="dot max"></span>
-        </div>
+  <!-- Start Screen -->
+  <div class="start-screen" *ngIf="!isGameStarted">
+    <p class="mission-text">Initialize trading session...</p>
+    <div class="stats-preview">
+      <div class="stat-item">
+        <span class="label">Capital</span>
+        <span class="value">10,000 USDT</span>
       </div>
-
-      <div class="modal-body">
-        <p class="mission-text">Initialize trading session...</p>
-        <div class="stats-preview">
-          <div class="stat-item">
-            <span class="label">Capital</span>
-            <span class="value">10,000 USDT</span>
-          </div>
-          <div class="stat-item">
-            <span class="label">Leverage</span>
-            <span class="value warning">1000x</span>
-          </div>
-        </div>
-
-        <div class="input-group">
-          <label>Trader Alias</label>
-          <input type="text" [(ngModel)]="username" placeholder="Enter alias..." class="ubuntu-input"
-            (keydown.enter)="startGame()" maxlength="20" autofocus />
-        </div>
-
-        <button class="ubuntu-btn primary" (click)="startGame()">
-          INITIALIZE SESSION
-        </button>
+      <div class="stat-item">
+        <span class="label">Leverage</span>
+        <span class="value warning">1000x</span>
       </div>
     </div>
+
+    <div class="input-group">
+      <label>Trader Alias</label>
+      <input type="text" [(ngModel)]="username" placeholder="Enter alias..." class="ubuntu-input"
+        (keydown.enter)="startGame()" maxlength="20" autofocus />
+    </div>
+
+    <button class="ubuntu-btn primary" (click)="startGame()">
+      INITIALIZE SESSION
+    </button>
   </div>
 
   <!-- Game Dashboard -->
