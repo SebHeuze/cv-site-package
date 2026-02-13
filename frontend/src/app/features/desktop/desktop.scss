@@ -239,3 +239,67 @@
   width: 100%;
   height: 100%;
 }
+
+// Powered By Badge
+.powered-badge {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(8px);
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  z-index: 2;
+  opacity: 0.6;
+  transition: opacity 0.3s;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+.powered-text {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 400;
+}
+
+.powered-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.powered-icon {
+  height: 20px;
+  width: 20px;
+}
+
+.powered-name {
+  font-size: 13px;
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 600;
+
+  &.proxmox {
+    color: #FF9933;
+  }
+
+  &.kubernetes {
+    color: #5B9BFF;
+  }
+}
+
+.powered-separator {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.35);
+  font-family: 'Ubuntu', sans-serif;
+}
