@@ -1,0 +1,27 @@
+<div class="system-monitor-container">
+  <!-- Loading Overlay -->
+  <div *ngIf="isLoading && !hasError" class="loading-overlay">
+    <div class="spinner"></div>
+    <p class="loading-text">Connecting to cluster...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="hasError" class="error-state">
+    <svg class="warning-icon" width="64" height="64" viewBox="0 0 24 24" fill="none">
+      <path d="M12 2L2 20h20L12 2z" stroke="#E95420" stroke-width="2" fill="none"/>
+      <path d="M12 9v4M12 17h.01" stroke="#E95420" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <h2>Dashboard Unavailable</h2>
+    <p>The monitoring dashboard is not configured in this environment.</p>
+  </div>
+
+  <!-- Grafana Dashboard Iframe -->
+  <iframe
+    *ngIf="!hasError && safeGrafanaUrl"
+    [src]="safeGrafanaUrl"
+    (load)="onIframeLoad()"
+    (error)="onIframeError()"
+    frameborder="0"
+    class="grafana-iframe">
+  </iframe>
+</div>

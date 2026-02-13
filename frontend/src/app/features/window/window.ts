@@ -5,10 +5,11 @@ import { CvTerminal } from '../cv-terminal/cv-terminal';
 import { TradingGame } from '../trading-game/trading-game';
 import { CvViewer } from '../cv-viewer/cv-viewer';
 import { SnakeGame } from '../snake-game/snake-game';
+import { SystemMonitor } from '../system-monitor/system-monitor';
 
 @Component({
   selector: 'app-window',
-  imports: [CommonModule, CvTerminal, TradingGame, CvViewer, SnakeGame],
+  imports: [CommonModule, CvTerminal, TradingGame, CvViewer, SnakeGame, SystemMonitor],
   templateUrl: './window.html',
   styleUrl: './window.scss',
 })

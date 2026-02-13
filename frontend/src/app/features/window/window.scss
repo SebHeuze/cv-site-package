@@ -184,9 +184,10 @@
   overflow: hidden;
   background-color: #1e1e1e;
 
-  // For cv-terminal and trading-game, no padding (full height)
+  // For cv-terminal, trading-game, and system-monitor, no padding (full height)
   app-cv-terminal,
-  app-trading-game {
+  app-trading-game,
+  app-system-monitor {
     display: block;
     width: 100%;
     height: 100%;
