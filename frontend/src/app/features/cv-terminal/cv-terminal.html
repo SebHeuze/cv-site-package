@@ -1,4 +1,4 @@
-<div class="terminal-container" (click)="focusInput()">
+<div class="terminal-container" (click)="handleContainerClick($event)">
   <div class="terminal-content" #terminalContent>
     <!-- Display all terminal lines -->
     <div *ngFor="let line of lines" class="terminal-line">
@@ -7,7 +7,7 @@
         <span class="command-text">{{ line.content }}</span>
       </div>
       <div *ngIf="line.type === 'output' || line.type === 'typing'" class="output-line">
-        <pre>{{ line.content }}</pre>
+        <pre [innerHTML]="sanitizeAndLinkify(line.content)"></pre>
       </div>
     </div>
 

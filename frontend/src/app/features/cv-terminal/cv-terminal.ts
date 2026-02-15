@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { CV_DATA } from './cv-data';
 
 interface TerminalLine {
@@ -39,6 +40,8 @@ export class CvTerminal implements OnInit, AfterViewInit {
     'sudo rm -rf /': () => this.sudoRmCommand(),
     'matrix': () => this.matrixCommand(),
   };
+
+  constructor(private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
     this.displayWelcomeAnimation();
@@ -174,6 +177,31 @@ Type 'help' for available commands
     setTimeout(() => {
       this.terminalInput?.nativeElement.focus();
     }, 100);
+  }
+
+  handleContainerClick(event: MouseEvent): void {
+    // Don't focus input if user is selecting text or clicking on a link
+    const selection = window.getSelection();
+    const target = event.target as HTMLElement;
+
+    if (selection && selection.toString().length > 0) {
+      // User is selecting text, don't focus input
+      return;
+    }
+
+    if (target.tagName === 'A') {
+      // User clicked on a link, don't focus input
+      return;
+    }
+
+    this.focusInput();
+  }
+
+  sanitizeAndLinkify(text: string): SafeHtml {
+    // Convert URLs to clickable links
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    const linkedText = text.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener noreferrer" class="terminal-link">$1</a>');
+    return this.sanitizer.sanitize(1, linkedText) || text;
   }
 
   scrollToBottom(): void {

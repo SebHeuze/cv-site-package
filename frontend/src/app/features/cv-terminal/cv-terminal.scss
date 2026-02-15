@@ -8,6 +8,7 @@
   padding: 8px;
   overflow: hidden;
   cursor: text;
+  user-select: text;
 
   // Mobile: semi-transparent to show gradient behind
   @media (max-width: 768px) {
@@ -74,6 +75,7 @@
 .command-line {
   display: flex;
   gap: 0;
+  user-select: text;
 
   .prompt {
     color: #8ae234;
@@ -90,6 +92,7 @@
 .output-line {
   color: #d4d4d4;
   margin-left: 0;
+  user-select: text;
 
   pre {
     margin: 0;
@@ -101,6 +104,7 @@
     border: none;
     white-space: pre-wrap;
     word-wrap: break-word;
+    user-select: text;
   }
 }
 
@@ -141,6 +145,23 @@
 @keyframes blink {
   50% {
     opacity: 0;
+  }
+}
+
+// Terminal links styling
+::ng-deep .terminal-link {
+  color: #729fcf;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: #8ae234;
+    text-decoration: underline;
+  }
+
+  &:visited {
+    color: #ad7fa8;
   }
 }
 
