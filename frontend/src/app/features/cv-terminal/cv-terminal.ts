@@ -201,7 +201,7 @@ Type 'help' for available commands
     // Convert URLs to clickable links
     const urlRegex = /(https?:\/\/[^\s]+)/g;
     const linkedText = text.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener noreferrer" class="terminal-link">$1</a>');
-    return this.sanitizer.sanitize(1, linkedText) || text;
+    return this.sanitizer.bypassSecurityTrustHtml(linkedText);
   }
 
   scrollToBottom(): void {
