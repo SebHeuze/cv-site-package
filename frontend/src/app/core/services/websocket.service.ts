@@ -3,6 +3,7 @@ import { Observable, Subject } from 'rxjs';
 import { Client, IMessage } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 import { TradeTick } from '../models/trade-tick.model';
+import { ConfigService } from './config.service';
 
 export interface PriceUpdate {
   price: number;
@@ -19,7 +20,7 @@ export class WebsocketService {
   private tradeSubject = new Subject<TradeTick>();
   private connected = false;
 
-  constructor() {}
+  constructor(private configService: ConfigService) {}
 
   // Connect to WebSocket and subscribe to price updates
   connectToPriceStream(): Observable<PriceUpdate> {
@@ -38,12 +39,9 @@ export class WebsocketService {
   }
 
   private connect(): void {
-    // Create STOMP client with SockJS - connect directly to backend
-    // Use secure protocol (https/wss) if page is loaded over HTTPS
-    const protocol = window.location.protocol === 'https:' ? 'https:' : 'http:';
-    const host = window.location.hostname;
-    const port = window.location.port ? `:${window.location.port}` : '';
-    const wsUrl = `${protocol}//${host}${port}/ws`;
+    // Create STOMP client with SockJS - connect to configured API backend
+    const apiBaseUrl = this.configService.get('apiBaseUrl');
+    const wsUrl = `${apiBaseUrl}/ws`;
 
     this.client = new Client({
       webSocketFactory: () => new SockJS(wsUrl) as any,

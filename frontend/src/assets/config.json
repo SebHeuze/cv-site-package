@@ -1,3 +1,4 @@
 {
-  "grafanaPublicDashboardUrl": "https://grafana.sebastien.sh/public-dashboards/PLACEHOLDER"
+  "grafanaPublicDashboardUrl": "https://grafana.sebastien.sh/public-dashboards/PLACEHOLDER",
+  "apiBaseUrl": "https://api.sebastien.sh"
 }

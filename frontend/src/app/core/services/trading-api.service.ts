@@ -5,14 +5,17 @@ import { Portfolio } from '../models/portfolio.model';
 import { GameSession, GameStatus, Score } from '../models/game-session.model';
 import { Trade } from '../models/trade.model';
 import { Candlestick } from '../models/candlestick.model';
+import { ConfigService } from './config.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TradingApiService {
-  private apiUrl = '/api';
+  private apiUrl: string;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private configService: ConfigService) {
+    this.apiUrl = `${this.configService.get('apiBaseUrl')}/api`;
+  }
 
   // Get current BTC/USDT price
   getCurrentPrice(): Observable<number> {

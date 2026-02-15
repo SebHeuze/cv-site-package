@@ -4,6 +4,7 @@ import { firstValueFrom } from 'rxjs';
 
 export interface AppConfig {
   grafanaPublicDashboardUrl: string;
+  apiBaseUrl: string;
 }
 
 @Injectable({
