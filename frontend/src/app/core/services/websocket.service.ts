@@ -39,7 +39,11 @@ export class WebsocketService {
 
   private connect(): void {
     // Create STOMP client with SockJS - connect directly to backend
-    const wsUrl = 'http://localhost:8082/ws';
+    // Use secure protocol (https/wss) if page is loaded over HTTPS
+    const protocol = window.location.protocol === 'https:' ? 'https:' : 'http:';
+    const host = window.location.hostname;
+    const port = window.location.port ? `:${window.location.port}` : '';
+    const wsUrl = `${protocol}//${host}${port}/ws`;
 
     this.client = new Client({
       webSocketFactory: () => new SockJS(wsUrl) as any,
