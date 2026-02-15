@@ -3,8 +3,6 @@ package com.cv.site.trading.service;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.Instant;
-import java.util.List;
-import java.util.stream.IntStream;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -296,20 +294,6 @@ public class GameService {
                 session.getUserId(), session.getSurvivalTimeSeconds(), finalCapital);
 
         return toScoreResponse(score);
-    }
-
-    @Transactional(readOnly = true)
-    public List<ScoreResponse> getLeaderboard(int limit) {
-        List<Score> scores = scoreRepository.findTop10ByOrderBySurvivalTimeSecondsDescFinalCapitalDesc();
-
-        return IntStream.range(0, Math.min(scores.size(), limit))
-                .mapToObj(i -> {
-                    Score score = scores.get(i);
-                    ScoreResponse response = toScoreResponse(score);
-                    response.setRank(i + 1);
-                    return response;
-                })
-                .toList();
     }
 
     private GameSession getActiveSession(String userId) {

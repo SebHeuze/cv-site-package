@@ -57,13 +57,6 @@ export class TradingApiService {
     });
   }
 
-  // Get leaderboard
-  getLeaderboard(limit: number = 10): Observable<Score[]> {
-    return this.http.get<Score[]>(`${this.apiUrl}/game/leaderboard`, {
-      params: { limit: limit.toString() }
-    });
-  }
-
   // Get price history (last 5 minutes)
   getPriceHistory(): Observable<Candlestick[]> {
     return this.http.get<Candlestick[]>(`${this.apiUrl}/price/history`);

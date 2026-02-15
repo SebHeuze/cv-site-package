@@ -8,7 +8,7 @@ import { GameOverModal } from './game-over-modal/game-over-modal';
 import { TradeFeed } from './trade-feed/trade-feed';
 import { GameService } from '../../core/services/game.service';
 import { Portfolio } from '../../core/models/portfolio.model';
-import { GameSession, Score } from '../../core/models/game-session.model';
+import { GameSession } from '../../core/models/game-session.model';
 
 @Component({
   selector: 'app-trading-game',
@@ -19,14 +19,13 @@ import { GameSession, Score } from '../../core/models/game-session.model';
 export class TradingGame implements OnInit, OnDestroy {
   @ViewChild(PriceChart) priceChart?: PriceChart;
 
-  username = '';
+  sessionId = '';
   isGameStarted = false;
   hasChosenPosition = false; // New state: waiting for first position choice
   isGameOver = false;
   currentPrice = 0;
   portfolio: Portfolio | null = null;
   survivalTime = 0;
-  leaderboard: Score[] = [];
 
   private subscriptions: Subscription[] = [];
 
@@ -63,10 +62,8 @@ export class TradingGame implements OnInit, OnDestroy {
   }
 
   startGame(): void {
-    if (!this.username.trim()) {
-      alert('Please enter a username');
-      return;
-    }
+    // Generate a unique session ID
+    this.sessionId = this.generateSessionId();
 
     this.isGameStarted = true;
     this.hasChosenPosition = false;
@@ -81,16 +78,20 @@ export class TradingGame implements OnInit, OnDestroy {
     );
   }
 
+  private generateSessionId(): string {
+    return 'sim-' + Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+  }
+
   goLong(): void {
     if (this.isGameOver) return;
 
     if (!this.hasChosenPosition) {
       // First position - start the game
       this.hasChosenPosition = true;
-      this.gameService.startGame(this.username, 'LONG');
+      this.gameService.startGame(this.sessionId, 'LONG');
     } else {
       // Switching position
-      this.gameService.goLong(this.username);
+      this.gameService.goLong(this.sessionId);
     }
   }
 
@@ -100,10 +101,10 @@ export class TradingGame implements OnInit, OnDestroy {
     if (!this.hasChosenPosition) {
       // First position - start the game
       this.hasChosenPosition = true;
-      this.gameService.startGame(this.username, 'SHORT');
+      this.gameService.startGame(this.sessionId, 'SHORT');
     } else {
       // Switching position
-      this.gameService.goShort(this.username);
+      this.gameService.goShort(this.sessionId);
     }
   }
 
@@ -113,48 +114,12 @@ export class TradingGame implements OnInit, OnDestroy {
 
   private handleGameOver(session: GameSession): void {
     this.isGameOver = true;
-    // Load leaderboard (mock data for now)
-    this.leaderboard = this.getMockLeaderboard();
-  }
-
-  private getMockLeaderboard(): Score[] {
-    return [
-      {
-        userId: 'alice-1',
-        username: 'Alice',
-        survivalTime: 4425, // 01:13:45
-        finalCapital: 15234,
-        achievedAt: new Date(),
-        rank: 1
-      },
-      {
-        userId: 'bob-2',
-        username: 'Bob',
-        survivalTime: 3492, // 00:58:12
-        finalCapital: 12456,
-        achievedAt: new Date(),
-        rank: 2
-      },
-      {
-        userId: 'charlie-3',
-        username: 'Charlie',
-        survivalTime: 2730, // 00:45:30
-        finalCapital: 9876,
-        achievedAt: new Date(),
-        rank: 3
-      }
-    ];
   }
 
   onPlayAgain(): void {
     this.isGameOver = false;
     this.isGameStarted = false;
     this.gameService.resetGame();
-  }
-
-  onViewLeaderboard(): void {
-    // In real implementation, call API
-    this.leaderboard = this.getMockLeaderboard();
   }
 
   onCloseGameOver(): void {

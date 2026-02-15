@@ -29,7 +29,7 @@ export class Desktop implements OnInit, OnDestroy {
 
   icons = [
     { id: 'cv-terminal', label: 'CV_Terminal', icon: 'assets/icons/terminal.svg', component: 'cv-terminal' },
-    { id: 'trading-game', label: 'Trading_Game', icon: 'assets/icons/trading.svg', component: 'trading-game' },
+    { id: 'trading-game', label: 'Trading_Simulator', icon: 'assets/icons/trading.svg', component: 'trading-game' },
     { id: 'cv-viewer', label: 'CV_Document', icon: 'assets/icons/pdf.svg', component: 'cv-viewer' },
     { id: 'snake-game', label: 'Snake_Game', icon: 'assets/icons/snake.svg', component: 'snake-game' },
     { id: 'system-monitor', label: 'System_Monitor', icon: 'assets/icons/system-monitor.svg', component: 'system-monitor' }
@@ -69,7 +69,7 @@ export class Desktop implements OnInit, OnDestroy {
 
     let title = 'Unknown';
     if (component === 'cv-terminal') title = 'CV Terminal';
-    else if (component === 'trading-game') title = 'Trading Game';
+    else if (component === 'trading-game') title = 'Trading Simulator';
     else if (component === 'cv-viewer') title = 'Document Viewer';
     else if (component === 'snake-game') title = 'Snake Game';
     else if (component === 'system-monitor') title = 'System Monitor';

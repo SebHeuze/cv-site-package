@@ -103,18 +103,6 @@ public class GameController {
     }
 
     /**
-     * Get leaderboard
-     * GET /api/game/leaderboard?limit=10
-     */
-    @GetMapping("/game/leaderboard")
-    public ResponseEntity<List<ScoreResponse>> getLeaderboard(
-            @RequestParam(defaultValue = "10") int limit) {
-        log.debug("Getting leaderboard with limit: {}", limit);
-        List<ScoreResponse> leaderboard = gameService.getLeaderboard(limit);
-        return ResponseEntity.ok(leaderboard);
-    }
-
-    /**
      * Get price history for chart initialization
      * GET /api/price/history
      */

@@ -1,6 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Score } from '../../../core/models/game-session.model';
 
 @Component({
   selector: 'app-game-over-modal',
@@ -12,11 +11,8 @@ export class GameOverModal {
   @Input() survivalTime = 0;
   @Input() finalCapital = 0;
   @Input() tradeCount = 0;
-  @Input() leaderboard: Score[] = [];
-  @Input() showLeaderboard = false;
 
   @Output() playAgain = new EventEmitter<void>();
-  @Output() viewLeaderboard = new EventEmitter<void>();
   @Output() close = new EventEmitter<void>();
 
   formatTime(seconds: number): string {
@@ -29,13 +25,6 @@ export class GameOverModal {
 
   onPlayAgain(): void {
     this.playAgain.emit();
-  }
-
-  onViewLeaderboard(): void {
-    this.showLeaderboard = !this.showLeaderboard;
-    if (this.showLeaderboard) {
-      this.viewLeaderboard.emit();
-    }
   }
 
   onClose(): void {

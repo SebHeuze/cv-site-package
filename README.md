@@ -8,7 +8,7 @@ This repository contains the source code and build configuration for the CV Site
 cv-site-package/
 ├── backend/
 │   ├── binance-ingester/     # WebSocket client streaming Binance BTCUSDT trades
-│   └── trading-simulator/    # REST API for trading game
+│   └── trading-simulator/    # REST API for trading simulator
 ├── frontend/                  # Angular web application
 └── .github/
     └── workflows/
@@ -20,8 +20,8 @@ cv-site-package/
 | Component | Description | Port | Tech Stack |
 |-----------|-------------|------|------------|
 | **binance-ingester** | Streams live Bitcoin trades from Binance via WebSocket and publishes to Kafka | 8080 | Java 25, Spring Boot, OkHttp3, Kafka |
-| **trading-simulator** | REST API for portfolio management, trade execution, and game mechanics | 8080 | Java 25, Spring Boot, JPA, Kafka, WebSocket |
-| **frontend** | Interactive trading game UI | 80 | Angular 20, lightweight-charts, STOMP/WebSocket |
+| **trading-simulator** | REST API for portfolio management, trade execution, and simulation mechanics | 8080 | Java 25, Spring Boot, JPA, Kafka, WebSocket |
+| **frontend** | Interactive trading simulator UI | 80 | Angular 20, lightweight-charts, STOMP/WebSocket |
 
 ## Prerequisites
 

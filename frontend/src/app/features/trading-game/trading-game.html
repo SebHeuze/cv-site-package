@@ -1,7 +1,7 @@
 <div class="trading-game-container">
   <!-- Start Screen -->
   <div class="start-screen" *ngIf="!isGameStarted">
-    <p class="mission-text">Initialize trading session...</p>
+    <p class="mission-text">Initialize simulation session...</p>
     <div class="stats-preview">
       <div class="stat-item">
         <span class="label">Capital</span>
@@ -27,14 +27,8 @@
       <span class="tech-label">Real-time stream</span>
     </div>
 
-    <div class="input-group">
-      <label>Trader Alias</label>
-      <input type="text" [(ngModel)]="username" placeholder="Enter alias..." class="ubuntu-input"
-        (keydown.enter)="startGame()" maxlength="20" autofocus />
-    </div>
-
     <button class="ubuntu-btn primary" (click)="startGame()">
-      INITIALIZE SESSION
+      START SIMULATION
     </button>
   </div>
 
@@ -53,8 +47,8 @@
       </div>
       <div class="right-section">
         <div class="user-info">
-          <span class="icon">👤</span>
-          <span class="name">{{ username }}</span>
+          <span class="icon">📊</span>
+          <span class="name">SIMULATOR</span>
         </div>
       </div>
     </header>
@@ -121,7 +115,7 @@
 
   <!-- Game Over Modal -->
   <app-game-over-modal *ngIf="isGameOver" [survivalTime]="survivalTime"
-    [finalCapital]="portfolio ? portfolio.currentBtcValue : 0" [tradeCount]="0" [leaderboard]="leaderboard"
-    (playAgain)="onPlayAgain()" (viewLeaderboard)="onViewLeaderboard()" (close)="onCloseGameOver()">
+    [finalCapital]="portfolio ? portfolio.currentBtcValue : 0" [tradeCount]="0"
+    (playAgain)="onPlayAgain()" (close)="onCloseGameOver()">
   </app-game-over-modal>
 </div>
