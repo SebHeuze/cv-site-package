@@ -9,12 +9,12 @@
 }
 
 .trade-feed-header {
-  padding: 12px 16px;
+  padding: 8px 12px;
   border-bottom: 1px solid #2b2b43;
 
   h3 {
     margin: 0;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 600;
     color: #d1d4dc;
   }
@@ -24,12 +24,12 @@
   display: grid;
   grid-template-columns: 1fr 1fr 80px;
   gap: 8px;
-  padding: 8px 16px;
+  padding: 6px 12px;
   background: #131722;
   border-bottom: 1px solid #2b2b43;
 
   .column-header {
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 600;
     color: #787b86;
     text-transform: uppercase;
@@ -63,8 +63,8 @@
   display: grid;
   grid-template-columns: 1fr 1fr 80px;
   gap: 8px;
-  padding: 4px 16px;
-  font-size: 12px;
+  padding: 3px 12px;
+  font-size: 11px;
   font-family: 'Courier New', monospace;
   transition: background-color 0.2s;
 
@@ -94,6 +94,6 @@
 
   .trade-time {
     color: #787b86;
-    font-size: 11px;
+    font-size: 10px;
   }
 }

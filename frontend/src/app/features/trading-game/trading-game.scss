@@ -180,8 +180,8 @@ $danger-red: #cb2431;
 .game-dashboard {
   display: flex;
   flex-direction: column;
-  padding: 16px;
-  gap: 16px;
+  padding: 8px;
+  gap: 8px;
   width: 100%;
   height: 100%;
 }
@@ -190,7 +190,7 @@ $danger-red: #cb2431;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 24px;
+  padding: 8px 16px;
   background: #e8e8e8;
   border-radius: 6px;
   border: 1px solid #d0d0d0;
@@ -202,7 +202,7 @@ $danger-red: #cb2431;
 
     .app-title {
       font-weight: 700;
-      font-size: 18px;
+      font-size: 16px;
       color: #2c2c2c;
     }
 
@@ -223,7 +223,7 @@ $danger-red: #cb2431;
   .center-section {
     .price-ticker {
       font-family: 'Ubuntu Mono', monospace;
-      font-size: 24px;
+      font-size: 20px;
       font-weight: 700;
 
       &.up {
@@ -258,7 +258,7 @@ $danger-red: #cb2431;
   display: grid;
   grid-template-columns: 3fr 1fr; // 3/4 : 1/4 ratio
   grid-template-rows: 3fr 1fr; // 3/4 : 1/4 ratio
-  gap: 16px;
+  gap: 8px;
   min-height: 0;
 }
 
@@ -271,10 +271,10 @@ $danger-red: #cb2431;
   overflow: hidden;
 
   .panel-header {
-    padding: 12px 16px;
+    padding: 8px 12px;
     background: #e8e8e8;
     border-bottom: 1px solid #d0d0d0;
-    font-size: 12px;
+    font-size: 11px;
     text-transform: uppercase;
     font-weight: 700;
     color: #666;
@@ -283,7 +283,7 @@ $danger-red: #cb2431;
 
   .panel-content {
     flex: 1;
-    padding: 16px;
+    padding: 12px;
     overflow: auto;
     position: relative;
   }
@@ -331,12 +331,12 @@ $danger-red: #cb2431;
 
   .trade-buttons {
     display: flex;
-    gap: 12px;
+    gap: 8px;
     height: 100%; // Fill height
 
     .trade-btn {
       flex: 1;
-      padding: 8px;
+      padding: 6px;
       border: none;
       border-radius: 6px;
       cursor: pointer;
@@ -351,26 +351,26 @@ $danger-red: #cb2431;
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 4px;
+        gap: 2px;
         z-index: 1;
         position: relative;
       }
 
       .direction {
         font-weight: 900;
-        font-size: 16px;
+        font-size: 14px;
       }
 
       .leverage {
         font-family: 'Ubuntu Mono', monospace;
         font-weight: 700;
-        font-size: 14px;
+        font-size: 12px;
         opacity: 0.9;
         margin-top: -2px;
       }
 
       .sub-text {
-        font-size: 10px;
+        font-size: 9px;
         opacity: 0.8;
       }
 
