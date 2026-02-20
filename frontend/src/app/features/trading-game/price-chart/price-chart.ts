@@ -32,6 +32,7 @@ export class PriceChart implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    window.removeEventListener('resize', this.handleResize);
     if (this.chart) {
       this.chart.remove();
     }

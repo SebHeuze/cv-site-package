@@ -3,7 +3,6 @@ export const CV_DATA = {
     name: "Sébastien HEUZE",
     title: "Technical Lead",
     email: "heuze.seb@gmail.com",
-    phone: "0608561010",
     linkedin: "https://www.linkedin.com/in/sheuze/",
     languages: ["Français", "Anglais C1"],
     profile: "Passionné par la tech, je mène une veille continue, relève des défis techniques variés et m'adapte rapidement pour optimiser développement et production."

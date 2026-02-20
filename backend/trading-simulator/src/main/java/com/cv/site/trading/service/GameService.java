@@ -102,7 +102,7 @@ public class GameService {
         // If already LONG, do nothing
         if (portfolio.getPositionType() == Portfolio.PositionType.LONG) {
             log.warn("User {} is already in LONG position", userId);
-            return toTradeResponse(null);
+            throw new IllegalStateException("Already in LONG position");
         }
 
         // Close SHORT position and calculate P&L with leverage
@@ -160,7 +160,7 @@ public class GameService {
         // If already SHORT, do nothing
         if (portfolio.getPositionType() == Portfolio.PositionType.SHORT) {
             log.warn("User {} is already in SHORT position", userId);
-            return toTradeResponse(null);
+            throw new IllegalStateException("Already in SHORT position");
         }
 
         // Close LONG position and calculate P&L with leverage
@@ -265,10 +265,8 @@ public class GameService {
                 .orElseThrow(() -> new IllegalArgumentException("Game session not found"));
 
         if (!session.getAlive()) {
-            log.warn("Game session {} already ended", sessionId);
-            return scoreRepository.findById(session.getId().hashCode() % 1000L)
-                    .map(this::toScoreResponse)
-                    .orElse(null);
+            log.warn("Game session {} already ended, skipping", sessionId);
+            return null;
         }
 
         Portfolio portfolio = getPortfolio(session.getUserId());

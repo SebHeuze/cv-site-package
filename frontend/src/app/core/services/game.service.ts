@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, interval } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { GameSession } from '../models/game-session.model';
 import { Portfolio } from '../models/portfolio.model';
 import { TradingApiService } from './trading-api.service';
@@ -14,6 +14,7 @@ export class GameService {
   private currentPrice$ = new BehaviorSubject<number>(0);
   private survivalTimer$ = new BehaviorSubject<number>(0);
   private timerInterval?: any;
+  private priceSubscription?: Subscription;
 
   constructor(
     private tradingApi: TradingApiService,
@@ -77,10 +78,17 @@ export class GameService {
 
   // Start price updates
   private startPriceUpdates(): void {
-    this.websocket.connectToPriceStream().subscribe(priceUpdate => {
-      this.currentPrice$.next(priceUpdate.price);
-      // Calculate P&L locally without calling backend
-      this.updatePortfolioLocally(priceUpdate.price);
+    // Unsubscribe any existing subscription before creating a new one
+    if (this.priceSubscription) {
+      this.priceSubscription.unsubscribe();
+    }
+    this.priceSubscription = this.websocket.connectToPriceStream().subscribe({
+      next: (priceUpdate) => {
+        this.currentPrice$.next(priceUpdate.price);
+        // Calculate P&L locally without calling backend
+        this.updatePortfolioLocally(priceUpdate.price);
+      },
+      error: (err) => console.error('Price stream error:', err)
     });
   }
 
@@ -139,9 +147,13 @@ export class GameService {
     if (this.timerInterval) {
       clearInterval(this.timerInterval);
     }
+    if (this.priceSubscription) {
+      this.priceSubscription.unsubscribe();
+      this.priceSubscription = undefined;
+    }
     this.websocket.disconnect();
-    this.tradingApi.endGame(sessionId).subscribe(() => {
-      // Game ended, can show leaderboard
+    this.tradingApi.endGame(sessionId).subscribe({
+      error: (err) => console.error('Error ending game:', err)
     });
   }
 
@@ -153,6 +165,10 @@ export class GameService {
     this.survivalTimer$.next(0);
     if (this.timerInterval) {
       clearInterval(this.timerInterval);
+    }
+    if (this.priceSubscription) {
+      this.priceSubscription.unsubscribe();
+      this.priceSubscription = undefined;
     }
   }
 }

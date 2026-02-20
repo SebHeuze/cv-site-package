@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -27,10 +28,11 @@ public class BinanceWebSocketClient extends WebSocketListener {
     private final ObjectMapper objectMapper;
     private final OkHttpClient httpClient;
 
-    private WebSocket webSocket;
+    private volatile WebSocket webSocket;
     private final AtomicInteger reconnectAttempts = new AtomicInteger(0);
     private final AtomicLong lastMessageTime = new AtomicLong(0);
     private final AtomicInteger connectionStatus = new AtomicInteger(0); // 0=disconnected, 1=connected
+    private final AtomicBoolean isReconnecting = new AtomicBoolean(false);
 
     private final Counter messagesReceivedCounter;
     private final Counter reconnectionCounter;
@@ -91,6 +93,14 @@ public class BinanceWebSocketClient extends WebSocketListener {
             webSocket.close(1000, "Application shutdown");
         }
         httpClient.dispatcher().executorService().shutdown();
+        try {
+            if (!httpClient.dispatcher().executorService().awaitTermination(5, TimeUnit.SECONDS)) {
+                httpClient.dispatcher().executorService().shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            httpClient.dispatcher().executorService().shutdownNow();
+            Thread.currentThread().interrupt();
+        }
     }
 
     @Override
@@ -106,6 +116,7 @@ public class BinanceWebSocketClient extends WebSocketListener {
 
         reconnectAttempts.set(0);
         connectionStatus.set(1);
+        isReconnecting.set(false);
     }
 
     @Override
@@ -147,6 +158,12 @@ public class BinanceWebSocketClient extends WebSocketListener {
     }
 
     private void reconnect() {
+        // Prevent multiple concurrent reconnection attempts
+        if (!isReconnecting.compareAndSet(false, true)) {
+            log.debug("Reconnection already in progress, skipping duplicate attempt");
+            return;
+        }
+
         int attempts = reconnectAttempts.incrementAndGet();
         reconnectionCounter.increment();
         log.info("Attempting to reconnect (attempt #{}) in {}ms", attempts, reconnectDelayMs);
@@ -159,6 +176,7 @@ public class BinanceWebSocketClient extends WebSocketListener {
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 log.error("Reconnection interrupted", e);
+                isReconnecting.set(false);
             }
         });
     }

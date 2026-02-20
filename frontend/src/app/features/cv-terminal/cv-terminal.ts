@@ -198,9 +198,18 @@ Type 'help' for available commands
   }
 
   sanitizeAndLinkify(text: string): SafeHtml {
-    // Convert URLs to clickable links
-    const urlRegex = /(https?:\/\/[^\s]+)/g;
-    const linkedText = text.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener noreferrer" class="terminal-link">$1</a>');
+    // HTML-escape first to neutralize any injected markup
+    const escaped = text
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+    // Replace only safe http/https URLs with clickable links
+    const urlRegex = /(https?:\/\/[a-zA-Z0-9\-._~:/?#[\]@!$&'()*+,;=%]+)/g;
+    const linkedText = escaped.replace(
+      urlRegex,
+      '<a href="$1" target="_blank" rel="noopener noreferrer" class="terminal-link">$1</a>'
+    );
     return this.sanitizer.bypassSecurityTrustHtml(linkedText);
   }
 
@@ -241,7 +250,6 @@ Hidden commands: Try 'sudo rm -rf /' or 'matrix'`;
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 📧 Email:     ${data.email}
-📱 Phone:     ${data.phone}
 🔗 LinkedIn:  ${data.linkedin}
 🌍 Languages: ${data.languages.join(', ')}
 
@@ -319,7 +327,6 @@ Observability & Quality:
 
 Name:     ${data.name}
 Email:    ${data.email}
-Phone:    ${data.phone}
 LinkedIn: ${data.linkedin}
 
 Feel free to reach out!

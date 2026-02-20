@@ -35,7 +35,7 @@ public class KafkaConfig {
         config.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
         config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
-        config.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
+        config.put(JsonDeserializer.TRUSTED_PACKAGES, "com.cv.site.trading.model");
         config.put(JsonDeserializer.VALUE_DEFAULT_TYPE, BinanceTradeEvent.class.getName());
         config.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
 

@@ -43,6 +43,9 @@ export class Window implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.removeDragListeners();
+    // Clean up resize listeners in case component is destroyed mid-resize
+    document.removeEventListener('mousemove', this.onResizeMove);
+    document.removeEventListener('mouseup', this.onResizeEnd);
   }
 
   private setupDragListeners(): void {
