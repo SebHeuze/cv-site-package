@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ConfigService } from '../../core/services/config.service';
 
 @Component({
   selector: 'app-system-monitor',
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './system-monitor.html',
   styleUrl: './system-monitor.scss',
 })

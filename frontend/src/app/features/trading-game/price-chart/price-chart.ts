@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ElementRef, ViewChild, Output, EventEmitter } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { createChart, IChartApi, Time, ColorType, ISeriesApi, CandlestickData, CandlestickSeries } from 'lightweight-charts';
 import { WebsocketService } from '../../../core/services/websocket.service';
 import { TradingApiService } from '../../../core/services/trading-api.service';
@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-price-chart',
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './price-chart.html',
   styleUrl: './price-chart.scss',
 })

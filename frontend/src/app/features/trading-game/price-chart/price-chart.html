@@ -1,9 +1,11 @@
 <div class="chart-wrapper">
   <div class="chart-header">
     <h3>BTC/USDT Price Chart</h3>
-    <div class="current-price" *ngIf="currentPrice && currentPrice > 0">
-      ${{ currentPrice.toFixed(2) }}
-    </div>
+    @if (currentPrice && currentPrice > 0) {
+      <div class="current-price">
+        ${{ currentPrice.toFixed(2) }}
+      </div>
+    }
   </div>
   <div #chartContainer class="chart-container"></div>
 </div>

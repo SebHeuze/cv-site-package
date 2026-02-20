@@ -1,121 +1,120 @@
 <div class="trading-game-container">
   <!-- Start Screen -->
-  <div class="start-screen" *ngIf="!isGameStarted">
-    <p class="mission-text">Initialize simulation session...</p>
-    <div class="stats-preview">
-      <div class="stat-item">
-        <span class="label">Capital</span>
-        <span class="value">10,000 USDT</span>
+  @if (!isGameStarted) {
+    <div class="start-screen">
+      <p class="mission-text">Initialize simulation session...</p>
+      <div class="stats-preview">
+        <div class="stat-item">
+          <span class="label">Capital</span>
+          <span class="value">10,000 USDT</span>
+        </div>
+        <div class="stat-item">
+          <span class="label">Leverage</span>
+          <span class="value warning">1000x</span>
+        </div>
       </div>
-      <div class="stat-item">
-        <span class="label">Leverage</span>
-        <span class="value warning">1000x</span>
+      <div class="tech-stack">
+        <div class="tech-item">
+          <img src="assets/icons/binance.svg" alt="Binance" class="tech-icon">
+          <span class="tech-name binance">Binance API</span>
+        </div>
+        <span class="tech-arrow">→</span>
+        <div class="tech-item">
+          <img src="assets/icons/kafka.svg" alt="Kafka" class="tech-icon">
+          <span class="tech-name kafka">Apache Kafka</span>
+        </div>
+        <span class="tech-arrow">→</span>
+        <span class="tech-label">Real-time stream</span>
       </div>
+      <button class="ubuntu-btn primary" (click)="startGame()">
+        START SIMULATION
+      </button>
     </div>
-
-    <div class="tech-stack">
-      <div class="tech-item">
-        <img src="assets/icons/binance.svg" alt="Binance" class="tech-icon">
-        <span class="tech-name binance">Binance API</span>
-      </div>
-      <span class="tech-arrow">→</span>
-      <div class="tech-item">
-        <img src="assets/icons/kafka.svg" alt="Kafka" class="tech-icon">
-        <span class="tech-name kafka">Apache Kafka</span>
-      </div>
-      <span class="tech-arrow">→</span>
-      <span class="tech-label">Real-time stream</span>
-    </div>
-
-    <button class="ubuntu-btn primary" (click)="startGame()">
-      START SIMULATION
-    </button>
-  </div>
+  }
 
   <!-- Game Dashboard -->
-  <div class="game-dashboard" *ngIf="isGameStarted && !isGameOver">
-    <!-- Top Bar -->
-    <header class="dashboard-header">
-      <div class="left-section">
-        <span class="app-title">BTC/USDT PERPETUAL</span>
-        <span class="status-badge live">LIVE</span>
-      </div>
-      <div class="center-section">
-        <div class="price-ticker" [class.up]="currentPrice > 0" [class.down]="currentPrice < 0">
-          {{ currentPrice | number:'1.2-2' }}
+  @if (isGameStarted && !isGameOver) {
+    <div class="game-dashboard">
+      <!-- Top Bar -->
+      <header class="dashboard-header">
+        <div class="left-section">
+          <span class="app-title">BTC/USDT PERPETUAL</span>
+          <span class="status-badge live">LIVE</span>
         </div>
-      </div>
-      <div class="right-section">
-        <div class="user-info">
-          <span class="icon">📊</span>
-          <span class="name">SIMULATOR</span>
-        </div>
-      </div>
-    </header>
-
-    <!-- Main Grid -->
-    <div class="dashboard-grid">
-      <!-- Top Left: Chart -->
-      <div class="panel chart-panel">
-        <div class="panel-header">Price Action</div>
-        <div class="panel-content">
-          <app-price-chart (priceUpdate)="onPriceUpdate($event)"></app-price-chart>
-        </div>
-      </div>
-
-      <!-- Top Right: Order Book (Trade Feed) -->
-      <div class="panel feed-panel">
-        <div class="panel-header">Order Book</div>
-        <div class="panel-content">
-          <app-trade-feed></app-trade-feed>
-        </div>
-      </div>
-
-      <!-- Bottom Left: Portfolio -->
-      <div class="panel stats-panel">
-        <div class="panel-header">Portfolio</div>
-        <div class="panel-content">
-          <app-portfolio-display [portfolio]="portfolio" [survivalTime]="survivalTime">
-          </app-portfolio-display>
-        </div>
-      </div>
-
-      <!-- Bottom Right: Trading Controls -->
-      <div class="panel controls-panel">
-        <div class="panel-header">Order Entry</div>
-        <div class="panel-content">
-
-          <div class="initial-prompt" *ngIf="!hasChosenPosition">
-            <p>Select entry position to begin</p>
+        <div class="center-section">
+          <div class="price-ticker" [class.up]="currentPrice > 0" [class.down]="currentPrice < 0">
+            {{ currentPrice | number:'1.2-2' }}
           </div>
-
-          <div class="trade-buttons">
-            <button class="trade-btn long" (click)="goLong()" [disabled]="portfolio?.positionType === 'LONG'"
-              [class.active]="portfolio?.positionType === 'LONG'">
-              <div class="btn-content">
-                <span class="direction">LONG</span>
-                <span class="leverage">x1000</span>
-                <span class="sub-text">Profit on UP</span>
+        </div>
+        <div class="right-section">
+          <div class="user-info">
+            <span class="icon">📊</span>
+            <span class="name">SIMULATOR</span>
+          </div>
+        </div>
+      </header>
+      <!-- Main Grid -->
+      <div class="dashboard-grid">
+        <!-- Top Left: Chart -->
+        <div class="panel chart-panel">
+          <div class="panel-header">Price Action</div>
+          <div class="panel-content">
+            <app-price-chart (priceUpdate)="onPriceUpdate($event)"></app-price-chart>
+          </div>
+        </div>
+        <!-- Top Right: Order Book (Trade Feed) -->
+        <div class="panel feed-panel">
+          <div class="panel-header">Order Book</div>
+          <div class="panel-content">
+            <app-trade-feed></app-trade-feed>
+          </div>
+        </div>
+        <!-- Bottom Left: Portfolio -->
+        <div class="panel stats-panel">
+          <div class="panel-header">Portfolio</div>
+          <div class="panel-content">
+            <app-portfolio-display [portfolio]="portfolio" [survivalTime]="survivalTime">
+            </app-portfolio-display>
+          </div>
+        </div>
+        <!-- Bottom Right: Trading Controls -->
+        <div class="panel controls-panel">
+          <div class="panel-header">Order Entry</div>
+          <div class="panel-content">
+            @if (!hasChosenPosition) {
+              <div class="initial-prompt">
+                <p>Select entry position to begin</p>
               </div>
-            </button>
-
-            <button class="trade-btn short" (click)="goShort()" [disabled]="portfolio?.positionType === 'SHORT'"
-              [class.active]="portfolio?.positionType === 'SHORT'">
-              <div class="btn-content">
-                <span class="direction">SHORT</span>
-                <span class="leverage">x1000</span>
-                <span class="sub-text">Profit on DOWN</span>
-              </div>
-            </button>
+            }
+            <div class="trade-buttons">
+              <button class="trade-btn long" (click)="goLong()" [disabled]="portfolio?.positionType === 'LONG'"
+                [class.active]="portfolio?.positionType === 'LONG'">
+                <div class="btn-content">
+                  <span class="direction">LONG</span>
+                  <span class="leverage">x1000</span>
+                  <span class="sub-text">Profit on UP</span>
+                </div>
+              </button>
+              <button class="trade-btn short" (click)="goShort()" [disabled]="portfolio?.positionType === 'SHORT'"
+                [class.active]="portfolio?.positionType === 'SHORT'">
+                <div class="btn-content">
+                  <span class="direction">SHORT</span>
+                  <span class="leverage">x1000</span>
+                  <span class="sub-text">Profit on DOWN</span>
+                </div>
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  }
 
   <!-- Game Over Modal -->
-  <app-game-over-modal *ngIf="isGameOver" [survivalTime]="survivalTime"
-    [finalCapital]="portfolio ? portfolio.currentBtcValue : 0" [tradeCount]="0"
-    (playAgain)="onPlayAgain()" (close)="onCloseGameOver()">
-  </app-game-over-modal>
+  @if (isGameOver) {
+    <app-game-over-modal [survivalTime]="survivalTime"
+      [finalCapital]="portfolio ? portfolio.currentBtcValue : 0" [tradeCount]="0"
+      (playAgain)="onPlayAgain()" (close)="onCloseGameOver()">
+    </app-game-over-modal>
+  }
 </div>

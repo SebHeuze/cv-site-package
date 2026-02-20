@@ -23,74 +23,80 @@
       <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
         <path
           d="M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42C17.99 7.86 19 9.81 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.19 1.01-4.14 2.58-5.42L6.17 5.17C4.23 6.82 3 9.26 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z" />
-      </svg>
-    </div>
-  </div>
-
-  <div class="desktop-main">
-    <!-- Left Dock -->
-    <div class="left-dock">
-      <!-- Only show open applications -->
-      <div *ngFor="let window of getTaskbarWindows()"
-           class="dock-item"
-           [class.is-open]="!window.isMinimized"
-           [class.is-active]="isAppActive(window.component)"
-           (click)="window.isMinimized ? restoreWindow(window.id) : bringToFront(window.id)"
-           [title]="window.title">
-        <div class="dock-icon">
-          <img [src]="getAppIcon(window.component)" [alt]="window.title">
-        </div>
-      </div>
-
-      <!-- Spacer -->
-      <div class="dock-spacer"></div>
-
-      <!-- App Grid Icon -->
-      <div class="dock-item dock-grid">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-          <circle cx="12" cy="12" r="2" />
-          <circle cx="4" cy="12" r="2" />
-          <circle cx="20" cy="12" r="2" />
-          <circle cx="12" cy="4" r="2" />
-          <circle cx="4" cy="4" r="2" />
-          <circle cx="20" cy="4" r="2" />
-          <circle cx="12" cy="20" r="2" />
-          <circle cx="4" cy="20" r="2" />
-          <circle cx="20" cy="20" r="2" />
         </svg>
       </div>
     </div>
 
-    <!-- Desktop Area -->
-    <div class="desktop-area" (click)="clearActiveWindow()">
-      <!-- Desktop Icons -->
-      <div class="desktop-icons">
-        <app-desktop-icon *ngFor="let icon of icons" [icon]="icon.icon" [label]="icon.label"
-          (click)="openWindow(icon.component); $event.stopPropagation()">
-        </app-desktop-icon>
+    <div class="desktop-main">
+      <!-- Left Dock -->
+      <div class="left-dock">
+        <!-- Only show open applications -->
+        @for (window of getTaskbarWindows(); track window) {
+          <div
+            class="dock-item"
+            [class.is-open]="!window.isMinimized"
+            [class.is-active]="isAppActive(window.component)"
+            (click)="window.isMinimized ? restoreWindow(window.id) : bringToFront(window.id)"
+            [title]="window.title">
+            <div class="dock-icon">
+              <img [src]="getAppIcon(window.component)" [alt]="window.title">
+            </div>
+          </div>
+        }
+
+        <!-- Spacer -->
+        <div class="dock-spacer"></div>
+
+        <!-- App Grid Icon -->
+        <div class="dock-item dock-grid">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <circle cx="12" cy="12" r="2" />
+            <circle cx="4" cy="12" r="2" />
+            <circle cx="20" cy="12" r="2" />
+            <circle cx="12" cy="4" r="2" />
+            <circle cx="4" cy="4" r="2" />
+            <circle cx="20" cy="4" r="2" />
+            <circle cx="12" cy="20" r="2" />
+            <circle cx="4" cy="20" r="2" />
+            <circle cx="20" cy="20" r="2" />
+          </svg>
+        </div>
       </div>
 
-      <!-- Windows -->
-      <div class="windows-container">
-        <app-window *ngFor="let window of getOpenWindows()" [window]="window" (close)="closeWindow(window.id)"
-          (minimize)="minimizeWindow(window.id)" (maximize)="maximizeWindow(window.id)"
-          (focus)="bringToFront(window.id)" (positionChange)="updateWindowPosition(window.id, $event)">
-        </app-window>
-      </div>
-    </div>
+      <!-- Desktop Area -->
+      <div class="desktop-area" (click)="clearActiveWindow()">
+        <!-- Desktop Icons -->
+        <div class="desktop-icons">
+          @for (icon of icons; track icon) {
+            <app-desktop-icon [icon]="icon.icon" [label]="icon.label"
+              (click)="openWindow(icon.component); $event.stopPropagation()">
+            </app-desktop-icon>
+          }
+        </div>
 
-    <!-- Powered By Badge -->
-    <div class="powered-badge">
-      <span class="powered-text">Powered by</span>
-      <div class="powered-item">
-        <img src="assets/icons/proxmox.svg" alt="Proxmox" class="powered-icon">
-        <span class="powered-name proxmox">Proxmox</span>
+        <!-- Windows -->
+        <div class="windows-container">
+          @for (window of getOpenWindows(); track window) {
+            <app-window [window]="window" (close)="closeWindow(window.id)"
+              (minimize)="minimizeWindow(window.id)" (maximize)="maximizeWindow(window.id)"
+              (focus)="bringToFront(window.id)" (positionChange)="updateWindowPosition(window.id, $event)">
+            </app-window>
+          }
+        </div>
       </div>
-      <span class="powered-separator">+</span>
-      <div class="powered-item">
-        <img src="assets/icons/kubernetes.svg" alt="Kubernetes" class="powered-icon">
-        <span class="powered-name kubernetes">Kubernetes</span>
+
+      <!-- Powered By Badge -->
+      <div class="powered-badge">
+        <span class="powered-text">Powered by</span>
+        <div class="powered-item">
+          <img src="assets/icons/proxmox.svg" alt="Proxmox" class="powered-icon">
+          <span class="powered-name proxmox">Proxmox</span>
+        </div>
+        <span class="powered-separator">+</span>
+        <div class="powered-item">
+          <img src="assets/icons/kubernetes.svg" alt="Kubernetes" class="powered-icon">
+          <span class="powered-name kubernetes">Kubernetes</span>
+        </div>
       </div>
     </div>
   </div>
-</div>

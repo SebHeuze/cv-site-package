@@ -1,10 +1,10 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { DesktopWindow } from '../desktop';
 
 @Component({
   selector: 'app-taskbar',
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './taskbar.html',
   styleUrl: './taskbar.scss',
 })

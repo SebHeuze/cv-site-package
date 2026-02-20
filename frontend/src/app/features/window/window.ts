@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, ElementRef, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { DesktopWindow } from '../desktop/desktop';
 import { CvTerminal } from '../cv-terminal/cv-terminal';
 import { TradingGame } from '../trading-game/trading-game';
@@ -9,7 +9,7 @@ import { SystemMonitor } from '../system-monitor/system-monitor';
 
 @Component({
   selector: 'app-window',
-  imports: [CommonModule, CvTerminal, TradingGame, CvViewer, SnakeGame, SystemMonitor],
+  imports: [CvTerminal, TradingGame, CvViewer, SnakeGame, SystemMonitor],
   templateUrl: './window.html',
   styleUrl: './window.scss',
 })

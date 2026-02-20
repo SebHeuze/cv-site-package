@@ -1,43 +1,40 @@
-<div class="portfolio-container" *ngIf="portfolio">
-  <div class="portfolio-grid">
-    <div
-      class="portfolio-item"
-      [ngClass]="portfolio.positionType === 'LONG' ? 'long-position' : 'short-position'"
-    >
-      <span class="label">Position:</span>
-      <span class="value">{{ portfolio.positionType }}</span>
-    </div>
-
-    <div class="portfolio-item">
-      <span class="label">Entry Price:</span>
-      <span class="value">{{ portfolio.entryPrice.toFixed(2) || '0.00' }} USDT</span>
-    </div>
-
-    <div class="portfolio-item">
-      <span class="label">Current Price:</span>
-      <span class="value">{{ portfolio.currentBtcPrice.toFixed(2) || '0.00' }} USDT</span>
-    </div>
-
-    <div class="portfolio-item">
-      <span class="label">Total Value:</span>
-      <span class="value" [ngClass]="getTotalValueClass()">
-        {{ portfolio.currentBtcValue.toFixed(2) || '0.00' }} USDT ({{
+@if (portfolio) {
+  <div class="portfolio-container">
+    <div class="portfolio-grid">
+      <div
+        class="portfolio-item"
+        [ngClass]="portfolio.positionType === 'LONG' ? 'long-position' : 'short-position'"
+        >
+        <span class="label">Position:</span>
+        <span class="value">{{ portfolio.positionType }}</span>
+      </div>
+      <div class="portfolio-item">
+        <span class="label">Entry Price:</span>
+        <span class="value">{{ portfolio.entryPrice.toFixed(2) || '0.00' }} USDT</span>
+      </div>
+      <div class="portfolio-item">
+        <span class="label">Current Price:</span>
+        <span class="value">{{ portfolio.currentBtcPrice.toFixed(2) || '0.00' }} USDT</span>
+      </div>
+      <div class="portfolio-item">
+        <span class="label">Total Value:</span>
+        <span class="value" [ngClass]="getTotalValueClass()">
+          {{ portfolio.currentBtcValue.toFixed(2) || '0.00' }} USDT ({{
           portfolio.totalPnl >= 0 ? '+' : ''
-        }}{{ ((portfolio.totalPnl / 10000) * 100).toFixed(2) || '0.00' }}%)
-      </span>
-    </div>
-
-    <div class="portfolio-item">
-      <span class="label">Unrealized P&L:</span>
-      <span class="value" [ngClass]="getProfitLossClass()">
-        {{ portfolio.unrealizedPnl >= 0 ? '+' : ''
-        }}{{ portfolio.unrealizedPnl.toFixed(2) || '0.00' }} USDT
-      </span>
-    </div>
-
-    <div class="portfolio-item">
-      <span class="label">Survival Time:</span>
-      <span class="value">{{ formatTime(survivalTime) }}</span>
+          }}{{ ((portfolio.totalPnl / 10000) * 100).toFixed(2) || '0.00' }}%)
+        </span>
+      </div>
+      <div class="portfolio-item">
+        <span class="label">Unrealized P&L:</span>
+        <span class="value" [ngClass]="getProfitLossClass()">
+          {{ portfolio.unrealizedPnl >= 0 ? '+' : ''
+          }}{{ portfolio.unrealizedPnl.toFixed(2) || '0.00' }} USDT
+        </span>
+      </div>
+      <div class="portfolio-item">
+        <span class="label">Survival Time:</span>
+        <span class="value">{{ formatTime(survivalTime) }}</span>
+      </div>
     </div>
   </div>
-</div>
+}

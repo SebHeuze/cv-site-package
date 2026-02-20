@@ -4,13 +4,14 @@
   </div>
 
   <div class="taskbar-center">
-    <div
-      *ngFor="let window of windows"
-      class="taskbar-item"
-      [class.minimized]="window.isMinimized"
-      (click)="onWindowClick(window.id)">
-      <span class="window-title">{{ window.title }}</span>
-    </div>
+    @for (window of windows; track window) {
+      <div
+        class="taskbar-item"
+        [class.minimized]="window.isMinimized"
+        (click)="onWindowClick(window.id)">
+        <span class="window-title">{{ window.title }}</span>
+      </div>
+    }
   </div>
 
   <div class="taskbar-right">

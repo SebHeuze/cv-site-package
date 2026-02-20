@@ -34,26 +34,42 @@
   </div>
 
   <!-- Window Content -->
-  <div class="window-content" [ngSwitch]="window.component">
-    <app-cv-terminal *ngSwitchCase="'cv-terminal'"></app-cv-terminal>
-    <app-trading-game *ngSwitchCase="'trading-game'"></app-trading-game>
-    <app-cv-viewer *ngSwitchCase="'cv-viewer'"></app-cv-viewer>
-    <app-snake-game *ngSwitchCase="'snake-game'"></app-snake-game>
-    <app-system-monitor *ngSwitchCase="'system-monitor'"></app-system-monitor>
-    <div *ngSwitchDefault>
-      <p>Unknown component: {{ window.component }}</p>
-    </div>
+  <div class="window-content">
+    @switch (window.component) {
+      @case ('cv-terminal') {
+        <app-cv-terminal></app-cv-terminal>
+      }
+      @case ('trading-game') {
+        <app-trading-game></app-trading-game>
+      }
+      @case ('cv-viewer') {
+        <app-cv-viewer></app-cv-viewer>
+      }
+      @case ('snake-game') {
+        <app-snake-game></app-snake-game>
+      }
+      @case ('system-monitor') {
+        <app-system-monitor></app-system-monitor>
+      }
+      @default {
+        <div>
+          <p>Unknown component: {{ window.component }}</p>
+        </div>
+      }
+    }
   </div>
 
   <!-- Resize Handles (only show when not maximized) -->
-  <div *ngIf="!window.isMaximized" class="resize-handles">
-    <div class="resize-handle resize-n" (mousedown)="onResizeStart($event, 'n')"></div>
-    <div class="resize-handle resize-e" (mousedown)="onResizeStart($event, 'e')"></div>
-    <div class="resize-handle resize-s" (mousedown)="onResizeStart($event, 's')"></div>
-    <div class="resize-handle resize-w" (mousedown)="onResizeStart($event, 'w')"></div>
-    <div class="resize-handle resize-ne" (mousedown)="onResizeStart($event, 'ne')"></div>
-    <div class="resize-handle resize-se" (mousedown)="onResizeStart($event, 'se')"></div>
-    <div class="resize-handle resize-sw" (mousedown)="onResizeStart($event, 'sw')"></div>
-    <div class="resize-handle resize-nw" (mousedown)="onResizeStart($event, 'nw')"></div>
-  </div>
+  @if (!window.isMaximized) {
+    <div class="resize-handles">
+      <div class="resize-handle resize-n" (mousedown)="onResizeStart($event, 'n')"></div>
+      <div class="resize-handle resize-e" (mousedown)="onResizeStart($event, 'e')"></div>
+      <div class="resize-handle resize-s" (mousedown)="onResizeStart($event, 's')"></div>
+      <div class="resize-handle resize-w" (mousedown)="onResizeStart($event, 'w')"></div>
+      <div class="resize-handle resize-ne" (mousedown)="onResizeStart($event, 'ne')"></div>
+      <div class="resize-handle resize-se" (mousedown)="onResizeStart($event, 'se')"></div>
+      <div class="resize-handle resize-sw" (mousedown)="onResizeStart($event, 'sw')"></div>
+      <div class="resize-handle resize-nw" (mousedown)="onResizeStart($event, 'nw')"></div>
+    </div>
+  }
 </div>

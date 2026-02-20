@@ -1,9 +1,9 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-game-over-modal',
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './game-over-modal.html',
   styleUrl: './game-over-modal.scss',
 })

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-cv-viewer',
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './cv-viewer.html',
   styleUrl: './cv-viewer.scss',
 })

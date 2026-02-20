@@ -1,18 +1,22 @@
 <div class="snake-game-container">
   <div class="game-header">
     <div class="score">Score: <span class="score-value">{{ score }}</span></div>
-    <div class="high-score" *ngIf="highScore > 0">Best: <span class="high-score-value">{{ highScore }}</span></div>
+    @if (highScore > 0) {
+      <div class="high-score">Best: <span class="high-score-value">{{ highScore }}</span></div>
+    }
   </div>
 
   <div class="canvas-wrapper">
     <canvas #gameCanvas></canvas>
 
-    <div class="start-overlay" *ngIf="state === 'start'">
-      <div class="overlay-content">
-        <h2>Snake</h2>
-        <p class="controls-hint">Use Arrow Keys to move</p>
-        <p class="start-hint">Press SPACE to start</p>
+    @if (state === 'start') {
+      <div class="start-overlay">
+        <div class="overlay-content">
+          <h2>Snake</h2>
+          <p class="controls-hint">Use Arrow Keys to move</p>
+          <p class="start-hint">Press SPACE to start</p>
+        </div>
       </div>
-    </div>
+    }
   </div>
 </div>

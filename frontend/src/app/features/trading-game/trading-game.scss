@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 // Variables
 $ubuntu-aubergine: #300a24;
 $ubuntu-orange: #dd4814;
@@ -168,7 +170,7 @@ $danger-red: #cb2431;
       color: white;
 
       &:hover {
-        background: lighten($ubuntu-orange, 5%);
+        background: color.adjust($ubuntu-orange, $lightness: 5%);
         transform: translateY(-1px);
         box-shadow: 0 4px 12px rgba($ubuntu-orange, 0.4);
       }
@@ -377,7 +379,7 @@ $danger-red: #cb2431;
       &.long {
         background: rgba($success-green, 0.15);
         border: 1px solid rgba($success-green, 0.3);
-        color: lighten($success-green, 10%);
+        color: color.adjust($success-green, $lightness: 10%);
 
         &:hover:not(:disabled) {
           background: rgba($success-green, 0.3);
@@ -394,7 +396,7 @@ $danger-red: #cb2431;
       &.short {
         background: rgba($danger-red, 0.15);
         border: 1px solid rgba($danger-red, 0.3);
-        color: lighten($danger-red, 10%);
+        color: color.adjust($danger-red, $lightness: 10%);
 
         &:hover:not(:disabled) {
           background: rgba($danger-red, 0.3);

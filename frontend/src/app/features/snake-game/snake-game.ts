@@ -1,5 +1,5 @@
 import { Component, ElementRef, HostListener, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 interface Point {
   x: number;
@@ -11,7 +11,7 @@ type GameState = 'start' | 'playing' | 'gameover';
 
 @Component({
   selector: 'app-snake-game',
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './snake-game.html',
   styleUrl: './snake-game.scss',
 })

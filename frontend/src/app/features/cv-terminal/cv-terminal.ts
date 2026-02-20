@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { CV_DATA } from './cv-data';
@@ -12,7 +12,7 @@ interface TerminalLine {
 
 @Component({
   selector: 'app-cv-terminal',
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   templateUrl: './cv-terminal.html',
   styleUrl: './cv-terminal.scss',
 })
