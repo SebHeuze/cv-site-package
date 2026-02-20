@@ -4,7 +4,10 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.Instant;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cv.site.trading.dto.GameSessionResponse;
@@ -40,13 +43,18 @@ public class GameService {
     private final ScoreRepository scoreRepository;
     private final PriceService priceService;
 
+    // Self-reference via proxy to ensure @Transactional(REQUIRES_NEW) is honoured
+    // when endGame() is called internally from startGame(), goLong(), goShort()
+    @Autowired @Lazy
+    private GameService self;
+
     @Transactional
     public GameSessionResponse startGame(String userId, String initialPosition) {
         // Check if user already has an active game
         gameSessionRepository.findByUserIdAndAliveTrue(userId)
                 .ifPresent(session -> {
                     log.warn("User {} already has an active game, ending it first", userId);
-                    endGame(session.getId());
+                    self.endGame(session.getId());
                 });
 
         BigDecimal currentPrice = priceService.getCurrentPrice();
@@ -240,6 +248,9 @@ public class GameService {
     }
 
     private BigDecimal calculateCurrentCapital(Portfolio portfolio, BigDecimal currentPrice) {
+        if (portfolio.getEntryPrice().signum() == 0) {
+            return portfolio.getCapitalUSDT();
+        }
         BigDecimal priceDiff;
         BigDecimal priceChangePercent;
         BigDecimal pnl;
@@ -259,7 +270,7 @@ public class GameService {
         return portfolio.getCapitalUSDT().add(pnl);
     }
 
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public ScoreResponse endGame(String sessionId) {
         GameSession session = gameSessionRepository.findById(sessionId)
                 .orElseThrow(() -> new IllegalArgumentException("Game session not found"));

@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 
 import { DesktopWindow } from '../desktop';
 
@@ -8,17 +8,22 @@ import { DesktopWindow } from '../desktop';
   templateUrl: './taskbar.html',
   styleUrl: './taskbar.scss',
 })
-export class Taskbar {
+export class Taskbar implements OnDestroy {
   @Input() windows: DesktopWindow[] = [];
   @Output() windowClick = new EventEmitter<string>();
 
   currentTime = new Date();
 
+  private clockInterval: ReturnType<typeof setInterval>;
+
   constructor() {
-    // Update time every second
-    setInterval(() => {
+    this.clockInterval = setInterval(() => {
       this.currentTime = new Date();
     }, 1000);
+  }
+
+  ngOnDestroy(): void {
+    clearInterval(this.clockInterval);
   }
 
   onWindowClick(windowId: string): void {

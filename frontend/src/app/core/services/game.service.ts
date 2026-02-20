@@ -118,6 +118,15 @@ export class GameService {
     // Check for game over condition (total value <= 0)
     if (currentValue <= 0 && session.alive) {
       console.warn('Game over detected - Total value:', currentValue);
+      // Emit final portfolio state so UI reflects liquidation before game over
+      this.portfolio$.next({
+        ...portfolio,
+        currentBtcPrice: currentPrice,
+        unrealizedPnl: unrealizedPnl,
+        currentBtcValue: 0,
+        totalPnl: -INITIAL_CAPITAL,
+        lastUpdated: new Date().toISOString()
+      });
       // Fetch latest status from backend to confirm game over
       this.updatePortfolioFromStatus(session.userId);
       return;

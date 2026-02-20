@@ -8,9 +8,13 @@ import com.cv.site.trading.dto.ScoreResponse;
 import com.cv.site.trading.dto.TradeResponse;
 import com.cv.site.trading.service.GameService;
 import com.cv.site.trading.service.PriceService;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @Slf4j
+@Validated
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
@@ -34,8 +39,8 @@ public class GameController {
      */
     @PostMapping("/game/start")
     public ResponseEntity<GameSessionResponse> startGame(
-            @RequestParam String userId,
-            @RequestParam(defaultValue = "LONG") String initialPosition) {
+            @RequestParam @NotBlank @Size(max = 50) String userId,
+            @RequestParam(defaultValue = "LONG") @Pattern(regexp = "LONG|SHORT") String initialPosition) {
         log.info("Starting new game for user: {} with initial position: {}", userId, initialPosition);
         GameSessionResponse response = gameService.startGame(userId, initialPosition);
         return ResponseEntity.ok(response);
@@ -46,7 +51,7 @@ public class GameController {
      * POST /api/game/long?userId=username
      */
     @PostMapping("/game/long")
-    public ResponseEntity<TradeResponse> goLong(@RequestParam String userId) {
+    public ResponseEntity<TradeResponse> goLong(@RequestParam @NotBlank @Size(max = 50) String userId) {
         log.info("User {} executing LONG trade", userId);
         try {
             TradeResponse response = gameService.goLong(userId);
@@ -62,7 +67,7 @@ public class GameController {
      * POST /api/game/short?userId=username
      */
     @PostMapping("/game/short")
-    public ResponseEntity<TradeResponse> goShort(@RequestParam String userId) {
+    public ResponseEntity<TradeResponse> goShort(@RequestParam @NotBlank @Size(max = 50) String userId) {
         log.info("User {} executing SHORT trade", userId);
         try {
             TradeResponse response = gameService.goShort(userId);
@@ -78,7 +83,7 @@ public class GameController {
      * GET /api/game/status?userId=username
      */
     @GetMapping("/game/status")
-    public ResponseEntity<GameStatusResponse> getStatus(@RequestParam String userId) {
+    public ResponseEntity<GameStatusResponse> getStatus(@RequestParam @NotBlank @Size(max = 50) String userId) {
         log.debug("Getting game status for user: {}", userId);
         try {
             GameStatusResponse response = gameService.getGameStatus(userId);
@@ -94,7 +99,7 @@ public class GameController {
      * POST /api/game/end?sessionId=session-uuid
      */
     @PostMapping("/game/end")
-    public ResponseEntity<ScoreResponse> endGame(@RequestParam String sessionId) {
+    public ResponseEntity<ScoreResponse> endGame(@RequestParam @NotBlank String sessionId) {
         log.info("Ending game session: {}", sessionId);
         try {
             ScoreResponse response = gameService.endGame(sessionId);

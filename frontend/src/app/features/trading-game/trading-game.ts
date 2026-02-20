@@ -19,7 +19,7 @@ import { GameSession } from '../../core/models/game-session.model';
 export class TradingGame implements OnInit, OnDestroy {
   @ViewChild(PriceChart) priceChart?: PriceChart;
 
-  sessionId = '';
+  userId = '';
   isGameStarted = false;
   hasChosenPosition = false; // New state: waiting for first position choice
   isGameOver = false;
@@ -62,8 +62,8 @@ export class TradingGame implements OnInit, OnDestroy {
   }
 
   startGame(): void {
-    // Generate a unique session ID
-    this.sessionId = this.generateSessionId();
+    // Generate a unique user ID for this session
+    this.userId = this.generateUserId();
 
     this.isGameStarted = true;
     this.hasChosenPosition = false;
@@ -78,7 +78,7 @@ export class TradingGame implements OnInit, OnDestroy {
     );
   }
 
-  private generateSessionId(): string {
+  private generateUserId(): string {
     return 'sim-' + Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
   }
 
@@ -88,10 +88,10 @@ export class TradingGame implements OnInit, OnDestroy {
     if (!this.hasChosenPosition) {
       // First position - start the game
       this.hasChosenPosition = true;
-      this.gameService.startGame(this.sessionId, 'LONG');
+      this.gameService.startGame(this.userId, 'LONG');
     } else {
       // Switching position
-      this.gameService.goLong(this.sessionId);
+      this.gameService.goLong(this.userId);
     }
   }
 
@@ -101,10 +101,10 @@ export class TradingGame implements OnInit, OnDestroy {
     if (!this.hasChosenPosition) {
       // First position - start the game
       this.hasChosenPosition = true;
-      this.gameService.startGame(this.sessionId, 'SHORT');
+      this.gameService.startGame(this.userId, 'SHORT');
     } else {
       // Switching position
-      this.gameService.goShort(this.sessionId);
+      this.gameService.goShort(this.userId);
     }
   }
 

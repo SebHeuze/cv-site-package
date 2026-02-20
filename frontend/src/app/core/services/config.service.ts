@@ -18,6 +18,11 @@ export class ConfigService {
   /**
    * Load configuration from assets/config.json at application startup
    */
+  private readonly defaults: AppConfig = {
+    grafanaPublicDashboardUrl: '',
+    apiBaseUrl: '',
+  };
+
   async loadConfig(): Promise<void> {
     try {
       this.config = await firstValueFrom(
@@ -25,8 +30,8 @@ export class ConfigService {
       );
       console.log('Configuration loaded:', this.config);
     } catch (error) {
-      console.error('Failed to load configuration:', error);
-      throw error;
+      console.warn('Failed to load configuration, using defaults:', error);
+      this.config = { ...this.defaults };
     }
   }
 

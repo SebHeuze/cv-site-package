@@ -3,8 +3,10 @@ package com.cv.site.trading.model;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -15,7 +17,9 @@ import java.time.Instant;
             @Index(name = "idx_survival_time", columnList = "survivalTimeSeconds DESC"),
             @Index(name = "idx_achieved_at", columnList = "achievedAt DESC")
         })
-@Data
+@Getter
+@Setter
+@ToString
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
