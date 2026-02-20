@@ -32,7 +32,14 @@ public class KafkaConfig {
     private int replicas;
 
     @Bean
-    public ProducerFactory<String, TradeEvent> producerFactory() {
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper()
+                .registerModule(new JavaTimeModule())
+                .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+    }
+
+    @Bean
+    public ProducerFactory<String, TradeEvent> producerFactory(ObjectMapper objectMapper) {
         Map<String, Object> configProps = new HashMap<>();
         configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         configProps.put(ProducerConfig.ACKS_CONFIG, "all");
@@ -40,13 +47,10 @@ public class KafkaConfig {
         configProps.put(ProducerConfig.COMPRESSION_TYPE_CONFIG, "snappy");
         configProps.put(ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION, 5);
         configProps.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, true);
-        ObjectMapper mapper = new ObjectMapper()
-                .registerModule(new JavaTimeModule())
-                .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         return new DefaultKafkaProducerFactory<>(
                 configProps,
                 new StringSerializer(),
-                new JsonSerializer<>(mapper)
+                new JsonSerializer<>(objectMapper)
         );
     }
 
