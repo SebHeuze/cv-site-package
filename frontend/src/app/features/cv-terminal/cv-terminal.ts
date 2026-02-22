@@ -328,6 +328,8 @@ Observability & Quality:
 Name:     ${data.name}
 Email:    ${data.email}
 LinkedIn: ${data.linkedin}
+GitHub:   ${data.github.package} (CV Site)
+          ${data.github.gitops} (GitOps)
 
 Feel free to reach out!
 `;

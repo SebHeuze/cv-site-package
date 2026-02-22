@@ -27,12 +27,14 @@ export class Desktop implements OnInit, OnDestroy {
   activeWindowId: string | null = null;
   private timeInterval?: number;
 
-  icons = [
+  icons: { id: string; label: string; icon: string; component?: string; url?: string }[] = [
     { id: 'cv-terminal', label: 'CV_Terminal', icon: 'assets/icons/terminal.svg', component: 'cv-terminal' },
     { id: 'trading-game', label: 'Trading_Simulator', icon: 'assets/icons/trading.svg', component: 'trading-game' },
     { id: 'cv-viewer', label: 'CV_Document', icon: 'assets/icons/pdf.svg', component: 'cv-viewer' },
     { id: 'snake-game', label: 'Snake_Game', icon: 'assets/icons/snake.svg', component: 'snake-game' },
-    { id: 'system-monitor', label: 'System_Monitor', icon: 'assets/icons/system-monitor.svg', component: 'system-monitor' }
+    { id: 'system-monitor', label: 'System_Monitor', icon: 'assets/icons/system-monitor.svg', component: 'system-monitor' },
+    { id: 'github-package', label: 'GitHub_Package', icon: 'assets/icons/github.svg', url: 'https://github.com/SebHeuze/cv-site-package' },
+    { id: 'github-gitops', label: 'GitHub_GitOps', icon: 'assets/icons/github.svg', url: 'https://github.com/SebHeuze/cv-site-gitops' }
   ];
 
   ngOnInit(): void {
@@ -165,6 +167,10 @@ export class Desktop implements OnInit, OnDestroy {
     if (window) {
       window.position = position;
     }
+  }
+
+  openUrl(url: string): void {
+    window.open(url, '_blank', 'noopener,noreferrer');
   }
 
   getAppIcon(component: string): string {

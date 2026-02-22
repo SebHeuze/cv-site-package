@@ -4,6 +4,10 @@ export const CV_DATA = {
     title: "Technical Lead",
     email: "heuze.seb@gmail.com",
     linkedin: "https://www.linkedin.com/in/sheuze/",
+    github: {
+      package: "https://github.com/SebHeuze/cv-site-package",
+      gitops: "https://github.com/SebHeuze/cv-site-gitops"
+    },
     languages: ["Français", "Anglais C1"],
     profile: "Passionné par la tech, je mène une veille continue, relève des défis techniques variés et m'adapte rapidement pour optimiser développement et production."
   },

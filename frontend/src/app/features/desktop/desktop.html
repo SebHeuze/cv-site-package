@@ -69,7 +69,7 @@
         <div class="desktop-icons">
           @for (icon of icons; track icon) {
             <app-desktop-icon [icon]="icon.icon" [label]="icon.label"
-              (click)="openWindow(icon.component); $event.stopPropagation()">
+              (click)="icon.url ? openUrl(icon.url) : openWindow(icon.component!); $event.stopPropagation()">
             </app-desktop-icon>
           }
         </div>
