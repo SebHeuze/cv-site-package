@@ -26,5 +26,9 @@ Thumbs.db
 .env
 .env.*
 
+# Runtime config (contains real URLs/tokens — use config.example.json as template)
+frontend/src/assets/config.json
+frontend/public/assets/config.json
+
 # Claude Code
 .claude/

@@ -1,0 +1,4 @@
+{
+  "grafanaPublicDashboardUrl": "https://your-grafana-instance/public-dashboards/YOUR_DASHBOARD_TOKEN",
+  "apiBaseUrl": "https://your-api-domain"
+}
