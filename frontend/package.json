@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "@angular/build": "^21.1.5",
-    "@angular/cli": "^21.1.4",
+    "@angular/cli": "^21.2.3",
     "@angular/compiler-cli": "^21.1.5",
     "@types/sockjs-client": "^1.5.4",
     "baseline-browser-mapping": "^2.10.0",
