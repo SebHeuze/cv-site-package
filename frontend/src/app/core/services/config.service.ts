@@ -5,6 +5,8 @@ import { firstValueFrom } from 'rxjs';
 export interface AppConfig {
   grafanaPublicDashboardUrl: string;
   apiBaseUrl: string;
+  umamiUrl: string;
+  umamiWebsiteId: string;
 }
 
 @Injectable({
@@ -21,6 +23,8 @@ export class ConfigService {
   private readonly defaults: AppConfig = {
     grafanaPublicDashboardUrl: '',
     apiBaseUrl: '',
+    umamiUrl: '',
+    umamiWebsiteId: '',
   };
 
   async loadConfig(): Promise<void> {
@@ -33,6 +37,20 @@ export class ConfigService {
       console.warn('Failed to load configuration, using defaults:', error);
       this.config = { ...this.defaults };
     }
+    this.loadUmamiScript();
+  }
+
+  private loadUmamiScript(): void {
+    const url = this.config?.umamiUrl;
+    const websiteId = this.config?.umamiWebsiteId;
+    if (!url || !websiteId) {
+      return;
+    }
+    const script = document.createElement('script');
+    script.defer = true;
+    script.src = `${url}/script.js`;
+    script.setAttribute('data-website-id', websiteId);
+    document.head.appendChild(script);
   }
 
   /**
