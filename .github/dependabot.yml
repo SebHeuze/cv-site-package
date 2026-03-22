@@ -11,6 +11,10 @@ updates:
     labels:
       - "dependencies"
       - "frontend"
+    groups:
+      angular:
+        patterns:
+          - "@angular/*"
 
   # Backend – binance-ingester (Maven)
   - package-ecosystem: "maven"
