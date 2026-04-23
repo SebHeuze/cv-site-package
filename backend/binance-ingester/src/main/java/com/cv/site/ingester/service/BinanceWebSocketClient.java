@@ -29,6 +29,7 @@ public class BinanceWebSocketClient extends WebSocketListener {
 
     private final String websocketUrl;
     private final long reconnectDelayMs;
+    private final long pingIntervalSec;
     private final KafkaProducerService kafkaProducerService;
     private final ObjectMapper objectMapper;
     private final OkHttpClient httpClient;
@@ -46,18 +47,25 @@ public class BinanceWebSocketClient extends WebSocketListener {
     public BinanceWebSocketClient(
             @Value("${binance.websocket.url}") String websocketUrl,
             @Value("${binance.websocket.reconnect-delay-ms}") long reconnectDelayMs,
+            @Value("${binance.websocket.ping-interval-sec:30}") long pingIntervalSec,
             KafkaProducerService kafkaProducerService,
             ObjectMapper objectMapper,
             MeterRegistry meterRegistry
     ) {
         this.websocketUrl = websocketUrl;
         this.reconnectDelayMs = reconnectDelayMs;
+        this.pingIntervalSec = pingIntervalSec;
         this.kafkaProducerService = kafkaProducerService;
         this.objectMapper = objectMapper;
 
         this.httpClient = new OkHttpClient.Builder()
                 .readTimeout(0, TimeUnit.MILLISECONDS)
+                .pingInterval(pingIntervalSec, TimeUnit.SECONDS)
                 .build();
+
+        // Grace period at boot: pretend a message just arrived so the liveness
+        // indicator doesn't immediately mark DOWN before the first real trade.
+        this.lastMessageTime.set(System.currentTimeMillis());
 
         // Metrics
         this.messagesReceivedCounter = Counter.builder("binance.websocket.messages.received")
@@ -173,6 +181,16 @@ public class BinanceWebSocketClient extends WebSocketListener {
         reconnectionCounter.increment();
         log.info("Attempting to reconnect (attempt #{}) in {}ms", attempts, reconnectDelayMs);
 
+        // Free the previous WebSocket so OkHttp releases its resources
+        WebSocket previous = this.webSocket;
+        if (previous != null) {
+            try {
+                previous.cancel();
+            } catch (Exception e) {
+                log.debug("Failed to cancel previous websocket (ignored): {}", e.getMessage());
+            }
+        }
+
         // Use Java 21 Virtual Threads for non-blocking reconnection
         Thread.ofVirtual().start(() -> {
             try {
@@ -184,5 +202,15 @@ public class BinanceWebSocketClient extends WebSocketListener {
                 isReconnecting.set(false);
             }
         });
+    }
+
+    /** Milliseconds since the last message was received, or -1 if none received yet. */
+    public long getLastMessageAgeMs() {
+        long last = lastMessageTime.get();
+        return last > 0 ? System.currentTimeMillis() - last : -1;
+    }
+
+    public boolean isConnected() {
+        return connectionStatus.get() == 1;
     }
 }
