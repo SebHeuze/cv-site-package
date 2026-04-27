@@ -29,13 +29,13 @@
     "rimraf": "^6.0.0"
   },
   "dependencies": {
-    "@angular/cdk": "^21.2.4",
-    "@angular/common": "^21.2.6",
-    "@angular/compiler": "^21.2.6",
-    "@angular/core": "^21.2.6",
-    "@angular/forms": "^21.2.6",
-    "@angular/platform-browser": "^21.2.6",
-    "@angular/router": "^21.2.6",
+    "@angular/cdk": "^21.2.8",
+    "@angular/common": "^21.2.10",
+    "@angular/compiler": "^21.2.10",
+    "@angular/core": "^21.2.10",
+    "@angular/forms": "^21.2.10",
+    "@angular/platform-browser": "^21.2.10",
+    "@angular/router": "^21.2.10",
     "@stomp/stompjs": "^7.3.0",
     "lightweight-charts": "^5.1.0",
     "rxjs": "~7.8.0",
@@ -44,9 +44,9 @@
     "zone.js": "~0.16.1"
   },
   "devDependencies": {
-    "@angular/build": "^21.2.5",
-    "@angular/cli": "^21.2.5",
-    "@angular/compiler-cli": "^21.2.6",
+    "@angular/build": "^21.2.8",
+    "@angular/cli": "^21.2.8",
+    "@angular/compiler-cli": "^21.2.10",
     "@types/sockjs-client": "^1.5.4",
     "baseline-browser-mapping": "^2.10.21",
     "typescript": "~5.9.2"
