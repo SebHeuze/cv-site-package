@@ -9,7 +9,7 @@ export const CV_DATA = {
       gitops: "https://github.com/SebHeuze/cv-site-gitops"
     },
     languages: ["French", "English C1"],
-    profile: "Passionate about tech, I continuously monitor the latest developments, tackle varied technical challenges and adapt quickly to optimize development and production."
+    profile: "Software Architect with 10+ years in Java/Spring and event-driven platforms. Kafka and Data Warehouse expert on GCP. Keen on AI-assisted development."
   },
 
   experiences: [
@@ -18,20 +18,20 @@ export const CV_DATA = {
       company: "Prologistik France",
       role: "Solutions Architect",
       tasks: [
-        "Kafka reference for the design and introduction of this new messaging solution within the IS",
-        "Architecture definition, implementation of inbound/outbound flows",
-        "Integration of new clients"
+        "Kafka referent on the design and rollout of this new messaging solution within the IS: architecture, inbound/outbound flows, and integration of new clients",
+        "Cross-functional involvement in software architecture: application and technical design, patterns and tech choices, dev and security standards",
+        "Led the experimentation and rollout of AI coding tools (Claude Code): best practices, internal guidelines, team onboarding",
+        "Support for project and dev teams: technical framing, architecture and code reviews"
       ]
     },
     {
-      period: "Oct. 2018 – Present",
+      period: "Oct. 2018 – May 2025",
       company: "Prologistik France",
       role: "Technical Lead R&D",
       tasks: [
-        "Involved from the design phase in the creation of a data analysis and visualization application (charts, dashboards)",
-        "Development of an in-house in-memory database, optimized for performance and memory usage",
-        "Implementation of a Data Warehouse via Kafka, aggregating data to BigQuery and PostgreSQL",
-        "Architecture of KStream projects, complete error management system, monitoring and automated testing with Testcontainers",
+        "Involvement from the design phase in building a data analysis and visualization application (charts, dashboards), including the development of a custom in-memory database, optimized for performance and memory usage",
+        "Implementation of a Data Warehouse via Kafka (handling tens of millions of messages per day), aggregating data from multiple applications into BigQuery and PostgreSQL",
+        "Architecture of KStream projects, complete error handling system, monitoring and automated tests with Testcontainers",
         "Ownership and evolution of the software factory: maintenance, industrialization and addition of new CI/CD pipelines",
         "Design and maintenance of shared technical foundations used across all Prologistik applications",
         "Implementation of centralized authentication via Keycloak"
@@ -42,9 +42,8 @@ export const CV_DATA = {
       company: "Capgemini",
       role: "Junior Solutions Architect",
       tasks: [
-        "Software architecture proposals, design of SNCF applications",
-        "Interoperability between applications, security hardening",
-        "Reliability of SNCF mobile application backends"
+        "Proposal of software architectures, design of SNCF applications",
+        "Interoperability between applications, security and reliability improvements for SNCF mobile application backends"
       ]
     },
     {
@@ -52,10 +51,9 @@ export const CV_DATA = {
       company: "Capgemini",
       role: "Java/Angular Tech Lead",
       tasks: [
-        "Creation of technical foundations",
-        "Management of several development teams",
-        "Implementation of best practices, onboarding of new joiners",
-        "Quality monitoring across multiple SNCF backends"
+        "Creation of technical foundations, oversight of several development teams",
+        "Implementation of best practices, onboarding and training of newcomers",
+        "Quality monitoring of a project across multiple SNCF backends"
       ]
     },
     {
@@ -85,12 +83,12 @@ export const CV_DATA = {
   ],
 
   skills: {
-    languages: ["Java 21+", "SpringBoot 3.5", "TypeScript", "Angular"],
+    languages: ["Java 25+", "SpringBoot 4", "TypeScript", "Angular"],
     cloud: ["GCP", "Docker", "Kubernetes", "Grafana", "Ansible"],
     auth: ["Keycloak", "Authelia", "OAuth2"],
     data: ["Kafka", "Kafka Connect", "Kafka Streams", "PostgreSQL", "BigQuery", "Hibernate"],
     cicd: ["Gitlab-CI", "Jenkins"],
-    observability: ["Grafana", "SonarQube", "Gatling"]
+    observability: ["Grafana", "SonarQube", "Gatling", "Testcontainers"]
   },
 
   projects: [
