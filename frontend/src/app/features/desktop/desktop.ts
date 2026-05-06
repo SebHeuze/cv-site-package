@@ -30,7 +30,8 @@ export class Desktop implements OnInit, OnDestroy {
   icons: { id: string; label: string; icon: string; component?: string; url?: string }[] = [
     { id: 'cv-terminal', label: 'CV_Terminal', icon: 'assets/icons/terminal.svg', component: 'cv-terminal' },
     { id: 'trading-game', label: 'Trading_Simulator', icon: 'assets/icons/trading.svg', component: 'trading-game' },
-    { id: 'cv-viewer', label: 'CV_Document', icon: 'assets/icons/pdf.svg', component: 'cv-viewer' },
+    { id: 'cv-viewer-fr', label: 'CV_Français', icon: 'assets/icons/pdf.svg', component: 'cv-viewer-fr' },
+    { id: 'cv-viewer-en', label: 'CV_English', icon: 'assets/icons/pdf.svg', component: 'cv-viewer-en' },
     { id: 'snake-game', label: 'Snake_Game', icon: 'assets/icons/snake.svg', component: 'snake-game' },
     { id: 'system-monitor', label: 'System_Monitor', icon: 'assets/icons/system-monitor.svg', component: 'system-monitor' },
     { id: 'github-package', label: 'GitHub_Package', icon: 'assets/icons/github.svg', url: 'https://github.com/SebHeuze/cv-site-package' },
@@ -72,7 +73,8 @@ export class Desktop implements OnInit, OnDestroy {
     let title = 'Unknown';
     if (component === 'cv-terminal') title = 'CV Terminal';
     else if (component === 'trading-game') title = 'Trading Simulator';
-    else if (component === 'cv-viewer') title = 'Document Viewer';
+    else if (component === 'cv-viewer-fr') title = 'CV Document (FR)';
+    else if (component === 'cv-viewer-en') title = 'Resume (EN)';
     else if (component === 'snake-game') title = 'Snake Game';
     else if (component === 'system-monitor') title = 'System Monitor';
 

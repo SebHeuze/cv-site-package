@@ -1,85 +1,85 @@
 export const CV_DATA = {
   about: {
     name: "Sébastien HEUZE",
-    title: "Technical Lead",
+    title: "Software Architect",
     email: "heuze.seb@gmail.com",
     linkedin: "https://www.linkedin.com/in/sheuze/",
     github: {
       package: "https://github.com/SebHeuze/cv-site-package",
       gitops: "https://github.com/SebHeuze/cv-site-gitops"
     },
-    languages: ["Français", "Anglais C1"],
-    profile: "Passionné par la tech, je mène une veille continue, relève des défis techniques variés et m'adapte rapidement pour optimiser développement et production."
+    languages: ["French", "English C1"],
+    profile: "Passionate about tech, I continuously monitor the latest developments, tackle varied technical challenges and adapt quickly to optimize development and production."
   },
 
   experiences: [
     {
-      period: "Mai 2025 - Présent",
+      period: "May 2025 – Present",
       company: "Prologistik France",
-      role: "Architecte Solutions",
+      role: "Solutions Architect",
       tasks: [
-        "Référent Kafka sur la conception et l'introduction de cette nouvelle solution de messaging au sein du SI",
-        "Définition de l'architecture, mise en place des flux entrants/sortants",
-        "Intégration des nouveaux clients"
+        "Kafka reference for the design and introduction of this new messaging solution within the IS",
+        "Architecture definition, implementation of inbound/outbound flows",
+        "Integration of new clients"
       ]
     },
     {
-      period: "Octobre 2018 - Présent",
+      period: "Oct. 2018 – Present",
       company: "Prologistik France",
       role: "Technical Lead R&D",
       tasks: [
-        "Implication dès la phase de conception dans la création d'une application d'analyse de données et de visualisation (graphiques, tableaux de bord)",
-        "Développement d'une base en mémoire maison, optimisée pour les performances et l'usage mémoire",
-        "Mise en place d'un Data Warehouse via Kafka, agrégeant les données vers BigQuery et PostgreSQL",
-        "Architecture des projets KStream, ajout d'un système complet de gestion d'erreurs, monitoring et tests automatisés avec Testcontainers",
-        "Prise en charge et évolution de la fabrique logicielle : maintenance, industrialisation et ajout de nouvelles pipelines CI/CD",
-        "Conception et maintenance des socles techniques mutualisés utilisés par l'ensemble des applications Prologistik",
-        "Mise en place de l'authentification centralisée via Keycloak"
+        "Involved from the design phase in the creation of a data analysis and visualization application (charts, dashboards)",
+        "Development of an in-house in-memory database, optimized for performance and memory usage",
+        "Implementation of a Data Warehouse via Kafka, aggregating data to BigQuery and PostgreSQL",
+        "Architecture of KStream projects, complete error management system, monitoring and automated testing with Testcontainers",
+        "Ownership and evolution of the software factory: maintenance, industrialization and addition of new CI/CD pipelines",
+        "Design and maintenance of shared technical foundations used across all Prologistik applications",
+        "Implementation of centralized authentication via Keycloak"
       ]
     },
     {
-      period: "Septembre 2017 - Octobre 2018",
+      period: "Sept. 2017 – Oct. 2018",
       company: "Capgemini",
-      role: "Architecte Solutions Junior",
+      role: "Junior Solutions Architect",
       tasks: [
-        "Proposition d'architectures logicielles, conception d'applications SNCF",
-        "Interopérabilité entre applications, sécurisation",
-        "Fiabilisation des backend d'applications mobiles SNCF"
+        "Software architecture proposals, design of SNCF applications",
+        "Interoperability between applications, security hardening",
+        "Reliability of SNCF mobile application backends"
       ]
     },
     {
-      period: "Février 2017 - Octobre 2018",
+      period: "Feb. 2017 – Oct. 2018",
       company: "Capgemini",
-      role: "Lead Tech Java/Angular",
+      role: "Java/Angular Tech Lead",
       tasks: [
-        "Création de socles techniques",
-        "Suivi de plusieurs équipes de développement",
-        "Mise en place de bonnes pratiques, formation des nouveaux arrivants",
-        "Surveillance de la qualité d'un projet sur de multiples Backend SNCF"
+        "Creation of technical foundations",
+        "Management of several development teams",
+        "Implementation of best practices, onboarding of new joiners",
+        "Quality monitoring across multiple SNCF backends"
       ]
     },
     {
-      period: "Septembre 2015 - Février 2017",
+      period: "Sept. 2015 – Feb. 2017",
       company: "Capgemini",
-      role: "Ingénieur Logiciel",
+      role: "Software Engineer",
       tasks: [
-        "Réalisation d'applications diverses (Java, Angular, Mobile) pour la SNCF"
+        "Development of various applications (Java, Angular, Mobile) for SNCF"
       ]
     },
     {
-      period: "Septembre 2013 - Septembre 2015",
+      period: "Sept. 2013 – Sept. 2015",
       company: "Capgemini",
-      role: "Apprenti Ingénieur Logiciel",
+      role: "Apprentice Software Engineer",
       tasks: [
-        "Réalisation d'applications diverses (Java, Angular, Mobile) pour la SNCF"
+        "Development of various applications (Java, Angular, Mobile) for SNCF"
       ]
     },
     {
-      period: "Septembre 2011 - Septembre 2012",
+      period: "Sept. 2011 – Sept. 2012",
       company: "Atos",
-      role: "Apprenti Analyste Développeur",
+      role: "Apprentice Developer / Analyst",
       tasks: [
-        "Tierce maintenance applicative pour France Télécom (Projet Vantive)"
+        "Application maintenance for France Télécom (Vantive Project)"
       ]
     }
   ],
@@ -90,43 +90,43 @@ export const CV_DATA = {
     auth: ["Keycloak", "Authelia", "OAuth2"],
     data: ["Kafka", "Kafka Connect", "Kafka Streams", "PostgreSQL", "BigQuery", "Hibernate"],
     cicd: ["Gitlab-CI", "Jenkins"],
-    observability: ["Grafana", "Sonarqube", "Gatlin"]
+    observability: ["Grafana", "SonarQube", "Gatling"]
   },
 
   projects: [
     {
-      name: "Auto-hébergement & NAS",
-      description: "Auto-hébergement de sites web + stockage NAS sur serveur personnel comprenant sécurisation, backup, monitoring et déploiement via Docker. Experimentations Proxmox"
+      name: "Self-Hosting & NAS",
+      description: "Self-hosting of websites + NAS storage on a personal server including security, backup, monitoring and deployment via Docker. Proxmox experiments."
     },
     {
-      name: "Domotique",
-      description: "Système domotique sous home assistant"
+      name: "Home Automation",
+      description: "Home automation system with Home Assistant."
     },
     {
-      name: "Site de jeu en ligne",
-      description: "Développement d'un site exploitant les données d'un jeu en ligne via rétro-ingénierie, gérant plus de 100 000 requêtes/jour (2015-2024)"
+      name: "Online Game Website",
+      description: "Development of a website exploiting data from an online game via reverse engineering, handling over 100,000 requests/day. (2015–2024)"
     }
   ],
 
   education: [
     {
       year: "2015",
-      degree: "Master MIAGE",
+      degree: "Master's MIAGE",
       school: "Nantes"
     },
     {
       year: "2013",
-      degree: "Licence 3 MIAGE",
+      degree: "Bachelor's MIAGE",
       school: "Nantes"
     },
     {
       year: "2012",
-      degree: "Licence professionnelle, Intégration et Maintenance applicative",
+      degree: "Professional Bachelor's, Application Integration & Maintenance",
       school: "Vannes"
     },
     {
       year: "2011",
-      degree: "DUT Informatique",
+      degree: "DUT Computer Science",
       school: "Vannes"
     }
   ]

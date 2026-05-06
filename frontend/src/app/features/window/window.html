@@ -42,8 +42,11 @@
       @case ('trading-game') {
         <app-trading-game></app-trading-game>
       }
-      @case ('cv-viewer') {
-        <app-cv-viewer></app-cv-viewer>
+      @case ('cv-viewer-fr') {
+        <app-cv-viewer [language]="'fr'"></app-cv-viewer>
+      }
+      @case ('cv-viewer-en') {
+        <app-cv-viewer [language]="'en'"></app-cv-viewer>
       }
       @case ('snake-game') {
         <app-snake-game></app-snake-game>

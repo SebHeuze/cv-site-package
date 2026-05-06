@@ -36,7 +36,8 @@ export class CvTerminal implements OnInit, AfterViewInit {
     'education': () => this.educationCommand(),
     'contact': () => this.contactCommand(),
     'clear': () => this.clearCommand(),
-    'download': () => this.downloadCommand(),
+    'download-fr': () => this.downloadFrCommand(),
+    'download-en': () => this.downloadEnCommand(),
     'sudo rm -rf /': () => this.sudoRmCommand(),
     'matrix': () => this.matrixCommand(),
   };
@@ -233,7 +234,8 @@ Type 'help' for available commands
   education   - Show educational background
   contact     - Display contact information
   clear       - Clear the terminal
-  download    - Download CV as PDF
+  download-fr - Download French CV (PDF)
+  download-en - Download English Resume (PDF)
   cowsay <msg>- Make the cow say something
 
 Hidden commands: Try 'sudo rm -rf /' or 'matrix'`;
@@ -340,14 +342,25 @@ Feel free to reach out!
     return '';
   }
 
-  downloadCommand(): string {
+  downloadFrCommand(): string {
     const link = document.createElement('a');
     link.href = 'CV_Sébastien_HEUZE.pdf';
     link.download = 'CV_Sébastien_HEUZE.pdf';
     link.click();
 
-    return `📥 Downloading CV...
+    return `📥 Downloading French CV...
 File: CV_Sébastien_HEUZE.pdf
+Status: Download started successfully!`;
+  }
+
+  downloadEnCommand(): string {
+    const link = document.createElement('a');
+    link.href = 'Resume_Sébastien_HEUZE.pdf';
+    link.download = 'Resume_Sébastien_HEUZE.pdf';
+    link.click();
+
+    return `📥 Downloading English Resume...
+File: Resume_Sébastien_HEUZE.pdf
 Status: Download started successfully!`;
   }
 
