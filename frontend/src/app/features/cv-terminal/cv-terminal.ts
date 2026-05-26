@@ -54,9 +54,13 @@ export class CvTerminal implements OnInit, AfterViewInit {
 
   async displayWelcomeAnimation(): Promise<void> {
     this.isTyping = true;
+    const isMobile = window.innerWidth <= 768;
+    const mobileHint = isMobile
+      ? `\n💡 For a better experience, check this out on desktop.\n`
+      : '';
     const welcomeText = `Welcome to Sébastien HEUZE's CV Terminal
 Type 'help' for available commands
-
+${mobileHint}
 `;
 
     await this.typeText(welcomeText);
@@ -67,7 +71,7 @@ Type 'help' for available commands
 
   private async typeText(text: string): Promise<void> {
     for (let i = 0; i < text.length; i++) {
-      await this.delay(30);
+      await this.delay(12);
       const currentText = text.substring(0, i + 1);
       const lastLine = this.lines[this.lines.length - 1];
 
