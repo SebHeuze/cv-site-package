@@ -49,6 +49,6 @@
     "@angular/compiler-cli": "^21.2.14",
     "@types/sockjs-client": "^1.5.4",
     "baseline-browser-mapping": "^2.10.32",
-    "typescript": "~5.9.2"
+    "typescript": "~6.0.3"
   }
 }
